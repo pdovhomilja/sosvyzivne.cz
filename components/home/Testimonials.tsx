@@ -34,9 +34,9 @@ export function Testimonials() {
         </h2>
 
         <div className="grid md:grid-cols-3 gap-8">
-          {TESTIMONIALS.map((t) => (
+          {TESTIMONIALS.map((t, i) => (
             <div
-              key={t.name}
+              key={`${t.name}-${i}`}
               className="p-8 rounded-2xl border border-hairline bg-surface-subtle"
             >
               {/* 5 stars */}

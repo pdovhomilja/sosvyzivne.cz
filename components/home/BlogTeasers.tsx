@@ -12,7 +12,7 @@ export function BlogTeasers({
 
   const imgs = pageImages("home");
   // Blog teasers use images starting at index 5 (home has 8 total: 0-7)
-  const teaseImgs = [imgs[5], imgs[6], imgs[7]];
+  const teaseImgs = imgs.slice(5, 8);
 
   return (
     <section className="py-24 bg-surface-muted">
@@ -29,21 +29,23 @@ export function BlogTeasers({
 
         <div className="grid md:grid-cols-3 gap-8">
           {posts.map((post, i) => {
-            const img = teaseImgs[i % teaseImgs.length];
+            const img = teaseImgs.length > 0 ? teaseImgs[i % teaseImgs.length] : undefined;
             return (
               <article
                 key={post.id}
                 className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow"
               >
                 {/* Thumbnail */}
-                <div className="relative h-48 overflow-hidden">
-                  <Image
-                    src={imgSrc(img)}
-                    alt={altText(img)}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
+                {img && (
+                  <div className="relative h-48 overflow-hidden">
+                    <Image
+                      src={imgSrc(img)}
+                      alt={altText(img)}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                )}
 
                 <div className="p-6">
                   <h3 className="text-lg font-bold mb-2 leading-snug">

@@ -38,7 +38,7 @@ export function Steps() {
 
             {STEPS.map((step, i) => (
               <div
-                key={step.title}
+                key={i}
                 className="relative z-10 flex flex-col items-center text-center"
               >
                 <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-lg mb-6">
