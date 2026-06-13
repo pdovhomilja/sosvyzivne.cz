@@ -16,6 +16,8 @@ export async function Header() {
     { href: "/kontakt", label: t("support") },
   ];
 
+  const navLinkClass = "text-ink transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-sm";
+
   return (
     <>
       {/* Utility bar */}
@@ -68,7 +70,7 @@ export async function Header() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="text-ink transition-colors hover:text-primary"
+                className={navLinkClass}
               >
                 {item.label}
               </Link>
@@ -81,7 +83,7 @@ export async function Header() {
             <button
               disabled
               aria-label="Hledat"
-              className="hidden items-center justify-center rounded-md p-2 text-ink-muted opacity-50 md:inline-flex"
+              className="hidden items-center justify-center rounded-md p-2 text-ink-muted opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 md:inline-flex"
             >
               <Search size={18} aria-hidden />
             </button>
