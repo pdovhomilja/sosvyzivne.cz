@@ -28,6 +28,20 @@
   --font-heading: var(--font-playfair), Georgia, serif;
   --font-body: var(--font-open-sans), system-ui, sans-serif;
 
+  /* Stitch alias names (same hexes as above) so ported markup resolves 1:1 */
+  --color-peach: #f8c0ba;
+  --color-peach-light: #fdebe9;
+  --color-terracotta: #cd625d;
+  --color-hairline: #ece2df;
+  --color-surface-subtle: #fbf7f6;
+
+  /* Stitch radii */
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+
+  --font-headline: var(--font-playfair), Georgia, serif;
+  /* `font-body` already maps via --font-body */
+
   /* Shape */
   --radius-sm: 6px;
   --radius-md: 12px;
