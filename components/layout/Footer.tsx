@@ -4,14 +4,14 @@ import { Mail, Phone, MapPin } from "lucide-react";
 
 export function Footer() {
   return (
-    <footer className="bg-[#FBF7F6] border-t border-hairline">
+    <footer className="bg-surface-subtle border-t border-hairline">
       <Container className="grid grid-cols-1 md:grid-cols-3 gap-8 py-12">
         {/* Brand column */}
         <div>
           <p className="font-heading text-xl text-primary font-bold mb-4">
             {ORG.shortName}
           </p>
-          <p className="text-[#6B5F5A] text-sm leading-relaxed max-w-xs">
+          <p className="text-ink-muted text-sm leading-relaxed max-w-xs">
             {ORG.tagline}
           </p>
         </div>
@@ -19,13 +19,13 @@ export function Footer() {
         {/* Kontakt column */}
         <div className="space-y-3">
           <p className="font-bold text-ink mb-2">Kontakt</p>
-          <div className="flex items-center gap-3 text-[#6B5F5A]">
+          <div className="flex items-center gap-3 text-ink-muted">
             <Phone className="w-5 h-5 text-primary shrink-0" aria-hidden="true" />
             <a href={`tel:${ORG.phone}`} className="hover:text-primary transition-colors text-sm">
               {ORG.phoneDisplay}
             </a>
           </div>
-          <div className="flex items-center gap-3 text-[#6B5F5A]">
+          <div className="flex items-center gap-3 text-ink-muted">
             <Mail className="w-5 h-5 text-primary shrink-0" aria-hidden="true" />
             <a
               href={`mailto:${ORG.email}`}
@@ -37,7 +37,7 @@ export function Footer() {
           <div className="pt-2">
             <p className="font-semibold text-ink text-sm mb-1">Pracovní doba:</p>
             {ORG.hours.map((h) => (
-              <p key={h.day} className="text-sm text-[#6B5F5A]">
+              <p key={h.day} className="text-sm text-ink-muted">
                 {h.day}: {h.time}
               </p>
             ))}
@@ -47,7 +47,7 @@ export function Footer() {
         {/* Adresa column */}
         <div className="space-y-2">
           <p className="font-bold text-ink mb-2">Adresa</p>
-          <div className="flex items-start gap-3 text-[#6B5F5A]">
+          <div className="flex items-start gap-3 text-ink-muted">
             <MapPin className="w-5 h-5 text-primary shrink-0 mt-0.5" aria-hidden="true" />
             <div className="text-sm space-y-1">
               <p className="font-medium">{ORG.legalName}</p>
@@ -60,10 +60,10 @@ export function Footer() {
       </Container>
 
       {/* Bottom bar */}
-      <div className="bg-white border-t border-hairline py-4">
-        <div className="max-w-[1200px] mx-auto px-8 text-center text-[#6B5F5A] text-sm">
+      <div className="bg-surface border-t border-hairline py-4">
+        <Container className="text-center text-ink-muted text-sm">
           © {new Date().getFullYear()} SOSvyzivne.cz
-        </div>
+        </Container>
       </div>
     </footer>
   );
