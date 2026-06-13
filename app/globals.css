@@ -56,24 +56,26 @@
   --foreground: var(--color-ink);
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-body);
-  line-height: 1.65;
-}
+@layer base {
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-body);
+    line-height: 1.65;
+  }
 
-h1,
-h2,
-h3,
-h4 {
-  font-family: var(--font-heading);
-  line-height: 1.15;
-  color: var(--color-accent);
-}
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-heading);
+    line-height: 1.15;
+    color: var(--color-accent);
+  }
 
-a {
-  color: var(--color-accent);
+  a {
+    color: var(--color-accent);
+  }
 }
 
 /* Long-form article/answer body (TipTap output). */
