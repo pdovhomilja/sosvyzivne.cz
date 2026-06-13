@@ -4,9 +4,9 @@ export function MediaStrip() {
   return (
     <section className="py-12 bg-surface-subtle border-y border-hairline">
       <Container>
-        <p className="text-center text-ink-muted text-sm mb-8 uppercase tracking-widest">
+        <h2 className="text-center text-ink-muted text-sm mb-8 uppercase tracking-widest">
           Kde jste o nás mohli slyšet?
-        </p>
+        </h2>
         <div className="flex flex-wrap justify-center items-center gap-12 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
           <span className="text-2xl font-bold font-heading" aria-label="iDNES">
             iDNES
@@ -21,16 +21,13 @@ export function MediaStrip() {
             iRozhlas
           </span>
           <span
-            className="text-2xl font-extrabold italic text-blue-900"
+            className="text-2xl font-extrabold italic text-ink-muted"
             aria-label="TV Nova"
           >
             TV NOVA
           </span>
-          <span className="text-xl font-bold flex items-center gap-1" aria-label="CNN Prima">
-            CNN{" "}
-            <span className="bg-red-600 text-white px-1" aria-hidden="true">
-              PRIMA
-            </span>
+          <span className="text-xl font-bold text-ink-muted" aria-label="CNN Prima">
+            CNN PRIMA
           </span>
         </div>
       </Container>
