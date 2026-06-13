@@ -1,40 +1,70 @@
 import { Container } from "@/components/ui/container";
 import { ORG } from "@/lib/org";
+import { Mail, Phone, MapPin } from "lucide-react";
 
 export function Footer() {
   return (
-    <footer className="border-t border-border bg-surface-muted">
-      <Container className="grid gap-8 py-12 sm:grid-cols-2 lg:grid-cols-3">
+    <footer className="bg-[#FBF7F6] border-t border-hairline">
+      <Container className="grid grid-cols-1 md:grid-cols-3 gap-8 py-12">
+        {/* Brand column */}
         <div>
-          <p className="font-heading text-lg font-bold text-accent">{ORG.legalName}</p>
-          <p className="mt-2 text-sm text-ink-muted">{ORG.tagline}</p>
-        </div>
-        <div className="text-sm">
-          <h3 className="mb-2 text-base">Kontakt</h3>
-          <p>
-            <a href={`mailto:${ORG.email}`}>{ORG.email}</a>
+          <p className="font-heading text-xl text-primary font-bold mb-4">
+            {ORG.shortName}
           </p>
-          <p>
-            <a href={`tel:${ORG.phone}`}>{ORG.phoneDisplay}</a>
+          <p className="text-[#6B5F5A] text-sm leading-relaxed max-w-xs">
+            {ORG.tagline}
           </p>
-          <p className="mt-2 font-semibold">Pracovní doba:</p>
-          {ORG.hours.map((h) => (
-            <p key={h.day}>
-              {h.day} {h.time}
-            </p>
-          ))}
         </div>
-        <div className="text-sm">
-          <h3 className="mb-2 text-base">Adresa</h3>
-          <p>IČO: {ORG.ico}</p>
-          <p>Sídlo: {ORG.seat}</p>
-          <p>Kancelář: {ORG.office}</p>
-          <p>ID datové schránky: {ORG.dataBox}</p>
+
+        {/* Kontakt column */}
+        <div className="space-y-3">
+          <p className="font-bold text-ink mb-2">Kontakt</p>
+          <div className="flex items-center gap-3 text-[#6B5F5A]">
+            <Phone className="w-5 h-5 text-primary shrink-0" aria-hidden="true" />
+            <a href={`tel:${ORG.phone}`} className="hover:text-primary transition-colors text-sm">
+              {ORG.phoneDisplay}
+            </a>
+          </div>
+          <div className="flex items-center gap-3 text-[#6B5F5A]">
+            <Mail className="w-5 h-5 text-primary shrink-0" aria-hidden="true" />
+            <a
+              href={`mailto:${ORG.email}`}
+              className="hover:text-primary transition-colors text-sm"
+            >
+              {ORG.email}
+            </a>
+          </div>
+          <div className="pt-2">
+            <p className="font-semibold text-ink text-sm mb-1">Pracovní doba:</p>
+            {ORG.hours.map((h) => (
+              <p key={h.day} className="text-sm text-[#6B5F5A]">
+                {h.day}: {h.time}
+              </p>
+            ))}
+          </div>
+        </div>
+
+        {/* Adresa column */}
+        <div className="space-y-2">
+          <p className="font-bold text-ink mb-2">Adresa</p>
+          <div className="flex items-start gap-3 text-[#6B5F5A]">
+            <MapPin className="w-5 h-5 text-primary shrink-0 mt-0.5" aria-hidden="true" />
+            <div className="text-sm space-y-1">
+              <p className="font-medium">{ORG.legalName}</p>
+              <p>IČO: {ORG.ico}</p>
+              <p>Sídlo: {ORG.seat}</p>
+              <p>Datová schránka: {ORG.dataBox}</p>
+            </div>
+          </div>
         </div>
       </Container>
-      <Container className="border-t border-border py-4 text-center text-xs text-ink-muted">
-        © {new Date().getFullYear()} SOSvyzivne.cz
-      </Container>
+
+      {/* Bottom bar */}
+      <div className="bg-white border-t border-hairline py-4">
+        <div className="max-w-[1200px] mx-auto px-8 text-center text-[#6B5F5A] text-sm">
+          © {new Date().getFullYear()} SOSvyzivne.cz
+        </div>
+      </div>
     </footer>
   );
 }
