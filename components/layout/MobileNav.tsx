@@ -32,6 +32,7 @@ export function MobileNav({
         <Dialog.Content className="fixed right-0 top-0 z-50 flex h-full w-72 flex-col gap-6 bg-surface p-6 shadow-xl focus:outline-none">
           <div className="flex items-center justify-between">
             <Dialog.Title className="font-heading text-lg text-accent">Menu</Dialog.Title>
+            <Dialog.Description className="sr-only">Navigační menu webu</Dialog.Description>
             <Dialog.Close
               aria-label="Zavřít menu"
               className="inline-flex h-9 w-9 items-center justify-center rounded-[var(--radius-md)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
