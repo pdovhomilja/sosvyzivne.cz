@@ -1,4 +1,5 @@
 "use client";
+import * as React from "react";
 import { useActionState } from "react";
 import { submitLead, type LeadState } from "./actions";
 import { Input } from "@/components/ui/input";
@@ -17,15 +18,15 @@ function Field({
   name: string;
   label: string;
   error?: string;
-  children: React.ReactNode;
+  children: React.ReactElement;
 }) {
   return (
     <div className="flex flex-col gap-2">
       <Label htmlFor={name} className="font-bold text-sm text-ink px-1">
         {label}
       </Label>
-      {children}
-      {error && <p className="text-sm text-error px-1">{error}</p>}
+      {error ? React.cloneElement(children, { "aria-describedby": `${name}-error`, "aria-invalid": true } as Record<string, unknown>) : children}
+      {error && <p id={`${name}-error`} role="alert" className="text-sm text-error px-1">{error}</p>}
     </div>
   );
 }
@@ -35,7 +36,7 @@ export function ContactForm() {
 
   if (state.ok && state.message) {
     return (
-      <div className="rounded-[var(--radius-md)] border border-success/40 bg-success/10 p-6">
+      <div role="status" className="rounded-[var(--radius-md)] border border-success/40 bg-success/10 p-6">
         <p className="font-semibold text-success">{state.message}</p>
       </div>
     );
@@ -44,7 +45,7 @@ export function ContactForm() {
   return (
     <form action={formAction} className="space-y-6" noValidate>
       {state.message && !state.ok && (
-        <p className="rounded-[var(--radius-sm)] bg-error/10 p-3 text-sm text-error">
+        <p role="alert" className="rounded-[var(--radius-sm)] bg-error/10 p-3 text-sm text-error">
           {state.message}
         </p>
       )}
@@ -126,15 +127,16 @@ export function ContactForm() {
           id="souhlas"
           name="souhlas"
           type="checkbox"
-          className="mt-1 w-5 h-5 rounded border-hairline text-primary focus:ring-primary"
+          className="mt-1 w-5 h-5 rounded border-hairline text-primary focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           required
+          {...(state.errors?.souhlas ? { "aria-describedby": "souhlas-error", "aria-invalid": true } : {})}
         />
         <Label htmlFor="souhlas" className="font-normal text-sm text-ink-muted leading-relaxed">
           Souhlasím se zpracováním osobních údajů za účelem vyřízení mé žádosti.
         </Label>
       </div>
       {state.errors?.souhlas && (
-        <p className="text-sm text-error">{state.errors.souhlas}</p>
+        <p id="souhlas-error" role="alert" className="text-sm text-error">{state.errors.souhlas}</p>
       )}
 
       <Button type="submit" size="lg" disabled={pending} className="w-full">
