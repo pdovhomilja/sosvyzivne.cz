@@ -1,26 +1,103 @@
 @import "tailwindcss";
 
+/*
+ * SOSvyzivne.cz design tokens — see docs/02-design-system.md.
+ * Brand: warm, empathetic, trustworthy. Playfair Display + Open Sans.
+ */
+@theme {
+  /* Brand */
+  --color-primary: #d3578d; /* pink — primary CTA */
+  --color-primary-hover: #bc436f;
+  --color-secondary: #f8c0ba; /* peach — soft fills */
+  --color-secondary-tint: #fdebe9;
+  --color-accent: #cd625d; /* terracotta — headings/links */
+  --color-accent-hover: #b14e49;
+
+  /* Neutrals (readable body text — NOT the terracotta) */
+  --color-ink: #2a2320;
+  --color-ink-muted: #6b5f5a;
+  --color-border: #ece2df;
+  --color-surface: #ffffff;
+  --color-surface-muted: #fbf7f6;
+
+  /* Functional */
+  --color-success: #2e7d5b;
+  --color-error: #c0392b;
+
+  /* Fonts (wired via next/font in the locale layout) */
+  --font-heading: var(--font-playfair), Georgia, serif;
+  --font-body: var(--font-open-sans), system-ui, sans-serif;
+
+  /* Shape */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-pill: 9999px;
+
+  /* Container */
+  --container-max: 1200px;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --background: var(--color-surface);
+  --foreground: var(--color-ink);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body);
+  line-height: 1.65;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-heading);
+  line-height: 1.15;
+  color: var(--color-accent);
+}
+
+a {
+  color: var(--color-accent);
+}
+
+/* Long-form article/answer body (TipTap output). */
+.prose-cms {
+  color: var(--color-ink);
+  line-height: 1.75;
+}
+.prose-cms h2 {
+  font-size: 1.5rem;
+  margin: 1.5em 0 0.5em;
+}
+.prose-cms h3 {
+  font-size: 1.25rem;
+  margin: 1.25em 0 0.4em;
+}
+.prose-cms p {
+  margin: 0 0 1em;
+}
+.prose-cms ul {
+  list-style: disc;
+  padding-left: 1.5rem;
+  margin: 0 0 1em;
+}
+.prose-cms ol {
+  list-style: decimal;
+  padding-left: 1.5rem;
+  margin: 0 0 1em;
+}
+.prose-cms a {
+  text-decoration: underline;
+}
+
+/* Respect reduced-motion preferences. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }
