@@ -227,7 +227,10 @@ export function ContentForm({ initial }: { initial?: Partial<ContentValues> }) {
                 min={1}
                 max={5}
                 value={v.rating}
-                onChange={(e) => set("rating", Number(e.target.value))}
+                onChange={(e) => {
+                  const n = Number(e.target.value);
+                  set("rating", Number.isFinite(n) ? Math.min(5, Math.max(1, n)) : 5);
+                }}
               />
             </div>
           </div>
