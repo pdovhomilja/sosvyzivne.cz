@@ -15,7 +15,8 @@
     "db:deploy": "prisma migrate deploy",
     "db:studio": "prisma studio",
     "seed:admins": "tsx scripts/seed-admins.ts",
-    "seed:content": "tsx scripts/seed-content.ts"
+    "seed:content": "tsx scripts/seed-content.ts",
+    "import:legacy": "tsx scripts/import-legacy-content.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.4.0",
