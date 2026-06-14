@@ -1,5 +1,6 @@
 import { setRequestLocale } from "next-intl/server";
 import { getLatestPosts } from "@/lib/cms/blog";
+import { getEndorsements } from "@/lib/cms/endorsements";
 import { PromoRibbon } from "@/components/layout/PromoRibbon";
 import { Hero } from "@/components/home/Hero";
 import { AboutBlock } from "@/components/home/AboutBlock";
@@ -26,6 +27,13 @@ export default async function HomePage({
     // DB not connected yet — render without blog teasers.
   }
 
+  let endorsements: Awaited<ReturnType<typeof getEndorsements>> = [];
+  try {
+    endorsements = await getEndorsements(locale);
+  } catch {
+    // DB not connected yet — render without testimonials.
+  }
+
   return (
     <>
       <PromoRibbon />
@@ -35,7 +43,7 @@ export default async function HomePage({
       <Steps />
       <BlogTeasers posts={latest} />
       <MediaStrip />
-      <Testimonials />
+      <Testimonials items={endorsements} />
     </>
   );
 }

@@ -88,6 +88,7 @@ enum ContentType {
   BLOG_POST
   FAQ
   PAGE
+  ENDORSEMENT
 }
 
 enum ContentStatus {
@@ -103,14 +104,14 @@ model Content {
   locale          String
   slug            String
   translationKey  String?
-  title           String // BLOG_POST: headline · FAQ: the question
+  title           String // BLOG_POST: headline · FAQ: question · ENDORSEMENT: client name
   excerpt         String?       @db.Text
-  body            String        @db.Text // TipTap HTML · FAQ: the answer
-  coverImage      String?
+  body            String        @db.Text // TipTap HTML · FAQ: answer · ENDORSEMENT: quote
+  coverImage      String? // BLOG_POST: cover · ENDORSEMENT: client photo
   metaTitle       String?
   metaDescription String?       @db.Text
   ogImage         String?
-  data            Json? // FAQ: { order, category } · BLOG_POST: usually null
+  data            Json? // FAQ: { order, category } · ENDORSEMENT: { order, role, location?, rating, consent }
   publishedAt     DateTime?
   authorId        String
   author          User          @relation(fields: [authorId], references: [id])

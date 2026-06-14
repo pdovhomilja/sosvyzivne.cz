@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const ContentTypeEnum = z.enum(["BLOG_POST", "FAQ", "PAGE"]);
+export const ContentTypeEnum = z.enum(["BLOG_POST", "FAQ", "PAGE", "ENDORSEMENT"]);
 export const ContentStatusEnum = z.enum(["DRAFT", "PUBLISHED", "ARCHIVED"]);
 
 const slug = z
@@ -35,10 +35,29 @@ export const faqData = z.object({
 
 export type FaqData = z.infer<typeof faqData>;
 
+/** Endorsement structured payload — testimonial metadata for "Spokojení klienti". */
+export const endorsementData = z.object({
+  order: z.number().int().min(0).default(0),
+  role: z.string().max(120).optional(),
+  location: z.string().max(120).optional(),
+  rating: z.number().int().min(1).max(5).default(5),
+  consent: z.boolean().default(false),
+});
+
+export type EndorsementData = z.infer<typeof endorsementData>;
+
 /** Validate the per-type `data` JSON, mapping issues onto the `data.*` path. */
 export const contentInputDiscriminated = contentInput.superRefine((val, ctx) => {
   if (val.type === "FAQ" && val.data != null) {
     const r = faqData.safeParse(val.data);
+    if (!r.success) {
+      for (const issue of r.error.issues) {
+        ctx.addIssue({ ...issue, path: ["data", ...issue.path] });
+      }
+    }
+  }
+  if (val.type === "ENDORSEMENT" && val.data != null) {
+    const r = endorsementData.safeParse(val.data);
     if (!r.success) {
       for (const issue of r.error.issues) {
         ctx.addIssue({ ...issue, path: ["data", ...issue.path] });

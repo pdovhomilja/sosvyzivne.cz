@@ -33,6 +33,33 @@ const POSTS = [
   },
 ];
 
+const ENDORSEMENTS = [
+  {
+    slug: "alena",
+    name: "Alena",
+    role: "Maminka na mateřské",
+    quote:
+      "Díky SOS výživné se mi konečně podařilo získat dlužné alimenty za dva roky. Celý proces byl neuvěřitelně hladký a lidský.",
+    order: 1,
+  },
+  {
+    slug: "frantisek",
+    name: "František",
+    role: "Otec samoživitel",
+    quote:
+      "Profesionální přístup a jasná komunikace. Pomohli mi v momentě, kdy jsem už ztrácel naději na férové vyrovnání.",
+    order: 2,
+  },
+  {
+    slug: "jana",
+    name: "Jana",
+    role: "Zaměstnaná maminka",
+    quote:
+      "Nejdřív jsem se bála poplatků, ale opravdu je vše zdarma. Doporučuji každému, kdo bojuje s neplatiči.",
+    order: 3,
+  },
+];
+
 async function main() {
   const url = process.env.DATABASE_URL;
   if (!url) throw new Error("DATABASE_URL is required");
@@ -79,6 +106,27 @@ async function main() {
       },
     });
     console.log(`✓ post: ${p.slug}`);
+  }
+
+  for (const e of ENDORSEMENTS) {
+    await db.content.upsert({
+      where: {
+        type_locale_slug: { type: "ENDORSEMENT", locale: "cs", slug: e.slug },
+      },
+      update: {},
+      create: {
+        type: "ENDORSEMENT",
+        status: "PUBLISHED",
+        locale: "cs",
+        slug: e.slug,
+        title: e.name,
+        body: e.quote,
+        data: { order: e.order, role: e.role, rating: 5, consent: true },
+        publishedAt: new Date(),
+        authorId: admin.id,
+      },
+    });
+    console.log(`✓ endorsement: ${e.slug}`);
   }
 
   await db.$disconnect();

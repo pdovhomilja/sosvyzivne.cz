@@ -3,6 +3,7 @@ import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { createContent, updateContent } from "@/actions/cms/content";
+import { useUploadThing } from "@/lib/uploadthing/client";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -10,7 +11,7 @@ import { Button } from "@/components/ui/button";
 
 type ContentValues = {
   id?: string;
-  type: "BLOG_POST" | "FAQ" | "PAGE";
+  type: "BLOG_POST" | "FAQ" | "PAGE" | "ENDORSEMENT";
   status: "DRAFT" | "PUBLISHED" | "ARCHIVED";
   slug: string;
   title: string;
@@ -20,6 +21,12 @@ type ContentValues = {
   metaDescription: string;
   order: number;
   category: string;
+  // Endorsement-only
+  role: string;
+  location: string;
+  rating: number;
+  consent: boolean;
+  coverImage: string;
 };
 
 const EMPTY: ContentValues = {
@@ -33,6 +40,11 @@ const EMPTY: ContentValues = {
   metaDescription: "",
   order: 0,
   category: "",
+  role: "",
+  location: "",
+  rating: 5,
+  consent: false,
+  coverImage: "",
 };
 
 export function ContentForm({ initial }: { initial?: Partial<ContentValues> }) {
@@ -41,6 +53,19 @@ export function ContentForm({ initial }: { initial?: Partial<ContentValues> }) {
   const [pending, start] = useTransition();
   const set = <K extends keyof ContentValues>(k: K, val: ContentValues[K]) =>
     setV((s) => ({ ...s, [k]: val }));
+
+  const { startUpload, isUploading } = useUploadThing("mediaImage", {
+    onClientUploadComplete: (res) => {
+      const url = res?.[0]?.ufsUrl;
+      if (url) {
+        set("coverImage", url);
+        toast.success("Fotografie nahrána.");
+      }
+    },
+    onUploadError: (e) => {
+      toast.error(e.message || "Nahrání selhalo.");
+    },
+  });
 
   function save() {
     start(async () => {
@@ -52,12 +77,21 @@ export function ContentForm({ initial }: { initial?: Partial<ContentValues> }) {
         title: v.title,
         excerpt: v.excerpt || null,
         body: v.body,
+        coverImage: v.coverImage || null,
         metaTitle: v.metaTitle || null,
         metaDescription: v.metaDescription || null,
         data:
           v.type === "FAQ"
             ? { order: Number(v.order) || 0, category: v.category || undefined }
-            : null,
+            : v.type === "ENDORSEMENT"
+              ? {
+                  order: Number(v.order) || 0,
+                  role: v.role || undefined,
+                  location: v.location || undefined,
+                  rating: Number(v.rating) || 5,
+                  consent: v.consent,
+                }
+              : null,
       };
       try {
         if (v.id) {
@@ -74,6 +108,7 @@ export function ContentForm({ initial }: { initial?: Partial<ContentValues> }) {
   }
 
   const isFaq = v.type === "FAQ";
+  const isEndorsement = v.type === "ENDORSEMENT";
 
   return (
     <div className="max-w-2xl space-y-4">
@@ -89,6 +124,7 @@ export function ContentForm({ initial }: { initial?: Partial<ContentValues> }) {
             <option value="BLOG_POST">Blog</option>
             <option value="FAQ">FAQ</option>
             <option value="PAGE">Stránka</option>
+            <option value="ENDORSEMENT">Reference</option>
           </select>
         </div>
         <div className="space-y-1">
@@ -109,7 +145,9 @@ export function ContentForm({ initial }: { initial?: Partial<ContentValues> }) {
       </div>
 
       <div className="space-y-1">
-        <Label htmlFor="title">{isFaq ? "Otázka" : "Nadpis"}</Label>
+        <Label htmlFor="title">
+          {isFaq ? "Otázka" : isEndorsement ? "Jméno klienta" : "Nadpis"}
+        </Label>
         <Input id="title" value={v.title} onChange={(e) => set("title", e.target.value)} />
       </div>
 
@@ -118,7 +156,7 @@ export function ContentForm({ initial }: { initial?: Partial<ContentValues> }) {
         <Input id="slug" value={v.slug} onChange={(e) => set("slug", e.target.value)} />
       </div>
 
-      {!isFaq && (
+      {!isFaq && !isEndorsement && (
         <div className="space-y-1">
           <Label htmlFor="excerpt">Perex</Label>
           <Textarea
@@ -151,40 +189,137 @@ export function ContentForm({ initial }: { initial?: Partial<ContentValues> }) {
         </div>
       )}
 
+      {isEndorsement && (
+        <>
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-1">
+              <Label htmlFor="role">Role / popis</Label>
+              <Input
+                id="role"
+                value={v.role}
+                onChange={(e) => set("role", e.target.value)}
+              />
+            </div>
+            <div className="space-y-1">
+              <Label htmlFor="location">Město (nepovinné)</Label>
+              <Input
+                id="location"
+                value={v.location}
+                onChange={(e) => set("location", e.target.value)}
+              />
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-1">
+              <Label htmlFor="order">Pořadí</Label>
+              <Input
+                id="order"
+                type="number"
+                value={v.order}
+                onChange={(e) => set("order", Number(e.target.value))}
+              />
+            </div>
+            <div className="space-y-1">
+              <Label htmlFor="rating">Hodnocení (1–5)</Label>
+              <Input
+                id="rating"
+                type="number"
+                min={1}
+                max={5}
+                value={v.rating}
+                onChange={(e) => {
+                  const n = Number(e.target.value);
+                  set("rating", Number.isFinite(n) ? Math.min(5, Math.max(1, n)) : 5);
+                }}
+              />
+            </div>
+          </div>
+          <div className="space-y-1">
+            <Label>Fotografie (nepovinné)</Label>
+            <div className="flex items-center gap-4">
+              {v.coverImage ? (
+                <>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={v.coverImage}
+                    alt=""
+                    className="h-14 w-14 rounded-full border border-border object-cover"
+                  />
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={() => set("coverImage", "")}
+                  >
+                    Odebrat
+                  </Button>
+                </>
+              ) : (
+                <Input
+                  type="file"
+                  accept="image/*"
+                  disabled={isUploading}
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (file) startUpload([file]);
+                  }}
+                />
+              )}
+              {isUploading && (
+                <span className="text-sm text-ink-muted">Nahrávám…</span>
+              )}
+            </div>
+          </div>
+          <label className="flex items-center gap-2 text-sm">
+            <input
+              type="checkbox"
+              checked={v.consent}
+              onChange={(e) => set("consent", e.target.checked)}
+            />
+            Klient souhlasil se zveřejněním
+          </label>
+        </>
+      )}
+
       <div className="space-y-1">
-        <Label htmlFor="body">{isFaq ? "Odpověď" : "Obsah"} (HTML)</Label>
+        <Label htmlFor="body">
+          {isFaq ? "Odpověď" : isEndorsement ? "Citace" : "Obsah"}
+          {!isEndorsement && " (HTML)"}
+        </Label>
         {/* TODO: replace with TipTap editor (components/cms/tiptap-editor). */}
         <Textarea
           id="body"
-          rows={12}
+          rows={isEndorsement ? 5 : 12}
           value={v.body}
           onChange={(e) => set("body", e.target.value)}
         />
       </div>
 
-      <details className="rounded-[var(--radius-sm)] border border-border p-3">
-        <summary className="cursor-pointer text-sm font-medium">SEO</summary>
-        <div className="mt-3 space-y-3">
-          <div className="space-y-1">
-            <Label htmlFor="metaTitle">Meta title</Label>
-            <Input
-              id="metaTitle"
-              value={v.metaTitle}
-              onChange={(e) => set("metaTitle", e.target.value)}
-            />
+      {!isEndorsement && (
+        <details className="rounded-[var(--radius-sm)] border border-border p-3">
+          <summary className="cursor-pointer text-sm font-medium">SEO</summary>
+          <div className="mt-3 space-y-3">
+            <div className="space-y-1">
+              <Label htmlFor="metaTitle">Meta title</Label>
+              <Input
+                id="metaTitle"
+                value={v.metaTitle}
+                onChange={(e) => set("metaTitle", e.target.value)}
+              />
+            </div>
+            <div className="space-y-1">
+              <Label htmlFor="metaDescription">Meta description</Label>
+              <Textarea
+                id="metaDescription"
+                value={v.metaDescription}
+                onChange={(e) => set("metaDescription", e.target.value)}
+              />
+            </div>
           </div>
-          <div className="space-y-1">
-            <Label htmlFor="metaDescription">Meta description</Label>
-            <Textarea
-              id="metaDescription"
-              value={v.metaDescription}
-              onChange={(e) => set("metaDescription", e.target.value)}
-            />
-          </div>
-        </div>
-      </details>
+        </details>
+      )}
 
-      <Button onClick={save} disabled={pending}>
+      <Button onClick={save} disabled={pending || isUploading}>
         {pending ? "Ukládám…" : "Uložit"}
       </Button>
     </div>

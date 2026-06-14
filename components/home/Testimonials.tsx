@@ -1,31 +1,10 @@
 import { Star } from "lucide-react";
 import { Container } from "@/components/ui/container";
+import type { EndorsementItem } from "@/lib/cms/endorsements";
 
-const TESTIMONIALS = [
-  {
-    quote:
-      "Díky SOS výživné se mi konečně podařilo získat dlužné alimenty za dva roky. Celý proces byl neuvěřitelně hladký a lidský.",
-    name: "Alena",
-    role: "Maminka na mateřské",
-    initial: "A",
-  },
-  {
-    quote:
-      "Profesionální přístup a jasná komunikace. Pomohli mi v momentě, kdy jsem už ztrácel naději na férové vyrovnání.",
-    name: "František",
-    role: "Otec samoživitel",
-    initial: "F",
-  },
-  {
-    quote:
-      "Nejdřív jsem se bála poplatků, ale opravdu je vše zdarma. Doporučuji každému, kdo bojuje s neplatiči.",
-    name: "Jana",
-    role: "Zaměstnaná maminka",
-    initial: "J",
-  },
-];
+export function Testimonials({ items }: { items: EndorsementItem[] }) {
+  if (items.length === 0) return null;
 
-export function Testimonials() {
   return (
     <section className="py-24 bg-white">
       <Container>
@@ -34,41 +13,57 @@ export function Testimonials() {
         </h2>
 
         <div className="grid md:grid-cols-3 gap-8">
-          {TESTIMONIALS.map((t, i) => (
-            <div
-              key={`${t.name}-${i}`}
-              className="p-8 rounded-2xl border border-hairline bg-surface-subtle"
-            >
-              {/* 5 stars */}
-              <div className="flex text-primary mb-4" aria-label="5 hvězdiček z 5">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <Star
-                    key={i}
-                    className="w-5 h-5 fill-primary"
-                    aria-hidden="true"
-                  />
-                ))}
-              </div>
-
-              <p className="italic text-ink mb-8 leading-relaxed">
-                &ldquo;{t.quote}&rdquo;
-              </p>
-
-              <div className="flex items-center gap-4">
-                {/* Avatar circle with initial */}
+          {items.map((t) => {
+            const rating = Math.min(5, Math.max(1, t.rating));
+            const subtitle = [t.role, t.location].filter(Boolean).join(" · ");
+            return (
+              <div
+                key={t.id}
+                className="p-8 rounded-2xl border border-hairline bg-surface-subtle"
+              >
                 <div
-                  className="w-12 h-12 rounded-full bg-peach flex items-center justify-center font-bold text-terracotta shrink-0"
-                  aria-hidden="true"
+                  className="flex text-primary mb-4"
+                  aria-label={`${rating} hvězdiček z 5`}
                 >
-                  {t.initial}
+                  {Array.from({ length: rating }).map((_, i) => (
+                    <Star
+                      key={i}
+                      className="w-5 h-5 fill-primary"
+                      aria-hidden="true"
+                    />
+                  ))}
                 </div>
-                <div>
-                  <p className="font-bold">{t.name}</p>
-                  <p className="text-xs text-ink-muted">{t.role}</p>
+
+                <p className="italic text-ink mb-8 leading-relaxed">
+                  &ldquo;{t.quote}&rdquo;
+                </p>
+
+                <div className="flex items-center gap-4">
+                  {t.photo ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={t.photo}
+                      alt=""
+                      className="w-12 h-12 rounded-full object-cover shrink-0"
+                    />
+                  ) : (
+                    <div
+                      className="w-12 h-12 rounded-full bg-peach flex items-center justify-center font-bold text-terracotta shrink-0"
+                      aria-hidden="true"
+                    >
+                      {t.name.charAt(0).toUpperCase()}
+                    </div>
+                  )}
+                  <div>
+                    <p className="font-bold">{t.name}</p>
+                    {subtitle && (
+                      <p className="text-xs text-ink-muted">{subtitle}</p>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </Container>
     </section>
