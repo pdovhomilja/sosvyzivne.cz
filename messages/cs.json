@@ -33,5 +33,29 @@
       "sendError": "Kód se nepodařilo odeslat.",
       "invalidCode": "Neplatný kód."
     }
+  },
+  "cookies": {
+    "cookieSettings": "Nastavení cookies",
+    "banner": {
+      "title": "Záleží nám na vašem soukromí",
+      "description": "Používáme cookies, aby náš web fungoval, a se souhlasem také k analýze návštěvnosti a zlepšování vašeho zážitku. Můžete přijmout vše, odmítnout nepodstatné cookies, nebo spravovat své předvolby.",
+      "acceptAll": "Přijmout vše",
+      "rejectAll": "Odmítnout nepodstatné",
+      "managePreferences": "Nastavení cookies"
+    },
+    "preferences": {
+      "title": "Předvolby cookies",
+      "description": "Zvolte, které kategorie cookies povolíte. Nezbytné cookies jsou vždy aktivní.",
+      "alwaysOn": "Vždy aktivní",
+      "necessaryLabel": "Nezbytné",
+      "necessaryDescription": "Nutné pro fungování webu. Nelze je vypnout.",
+      "analyticsLabel": "Analytické",
+      "analyticsDescription": "Pomáhají nám pochopit, jak návštěvníci web užívají, abychom jej mohli zlepšovat.",
+      "marketingLabel": "Marketingové",
+      "marketingDescription": "Slouží k zobrazování relevantní reklamy a měření výkonnosti kampaní.",
+      "save": "Uložit předvolby",
+      "acceptAll": "Přijmout vše",
+      "close": "Zavřít"
+    }
   }
 }
