@@ -46,4 +46,12 @@ assert.equal(fallback.rating, 5);
 assert.equal(fallback.photo, undefined);
 assert.equal(fallback.order, 0);
 
+// Consent gate predicate (mirrors getEndorsements): only consent === true passes.
+const passesGate = (data: unknown) =>
+  endorsementData.safeParse(data).data?.consent === true;
+assert.equal(passesGate({ consent: true }), true);
+assert.equal(passesGate({ consent: false }), false);
+assert.equal(passesGate({}), false); // default consent is false
+assert.equal(passesGate(null), false); // unparsable → hidden
+
 console.log("✓ endorsement schema + mapping OK");

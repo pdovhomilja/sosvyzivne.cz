@@ -41,5 +41,10 @@ export async function getEndorsements(locale: string): Promise<EndorsementItem[]
     orderBy: [{ createdAt: "asc" }],
     select: { id: true, title: true, body: true, coverImage: true, data: true },
   });
-  return rows.map(toEndorsementItem).sort((a, b) => a.order - b.order);
+  // Consent gate: only show endorsements the client explicitly agreed to publish.
+  // A missing/false/unparsable `consent` keeps the row hidden even when PUBLISHED.
+  return rows
+    .filter((row) => endorsementData.safeParse(row.data).data?.consent === true)
+    .map(toEndorsementItem)
+    .sort((a, b) => a.order - b.order);
 }
