@@ -39,8 +39,8 @@ export async function getFaqs(locale: string): Promise<FaqItem[]> {
 }
 
 export async function getFaqBySlug(locale: string, slug: string) {
-  const row = await db.content.findUnique({
-    where: { type_locale_slug: { type: "FAQ", locale, slug } },
+  const row = await db.content.findFirst({
+    where: { type: "FAQ", status: "PUBLISHED", locale, slug },
     select: { id: true, slug: true, title: true, body: true, data: true },
   });
   return row ? toFaqItem(row) : null;
