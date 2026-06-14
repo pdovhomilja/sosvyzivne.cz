@@ -29,6 +29,7 @@ function revalidatePublic(type: ContentInput["type"], slug: string) {
     revalidatePath("/"); // home "Novinky z blogu" teasers
   }
   if (type === "FAQ") revalidatePath("/faq");
+  if (type === "ENDORSEMENT") revalidatePath("/"); // home "Spokojení klienti"
 }
 
 function toJsonField(
