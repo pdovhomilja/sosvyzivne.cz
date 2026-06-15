@@ -1,5 +1,6 @@
 import { Container } from "@/components/ui/container";
 import { ORG } from "@/lib/org";
+import { CookieSettingsLink } from "@/components/CookieConsent";
 import { Mail, Phone, MapPin } from "lucide-react";
 
 export function Footer() {
@@ -61,8 +62,9 @@ export function Footer() {
 
       {/* Bottom bar */}
       <div className="bg-surface border-t border-hairline py-4">
-        <Container className="text-center text-ink-muted text-sm">
-          © {new Date().getFullYear()} SOSvyzivne.cz
+        <Container className="flex flex-col items-center justify-center gap-2 text-center text-ink-muted text-sm sm:flex-row sm:gap-4">
+          <span>© {new Date().getFullYear()} SOSvyzivne.cz</span>
+          <CookieSettingsLink className="hover:text-primary transition-colors" />
         </Container>
       </div>
     </footer>

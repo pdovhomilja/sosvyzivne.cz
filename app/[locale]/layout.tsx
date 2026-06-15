@@ -10,6 +10,8 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { CtaBand } from "@/components/layout/CtaBand";
 import { Toaster } from "@/components/ui/sonner";
+import { CookieConsent } from "@/components/CookieConsent";
+import { PostHogAnalytics } from "@/components/PostHogAnalytics";
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",
@@ -70,8 +72,10 @@ export default async function LocaleLayout({
           <main className="flex-1">{children}</main>
           <CtaBand />
           <Footer />
+          <CookieConsent />
         </NextIntlClientProvider>
         <Toaster richColors />
+        <PostHogAnalytics />
       </body>
     </html>
   );
