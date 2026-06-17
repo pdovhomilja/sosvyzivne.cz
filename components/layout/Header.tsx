@@ -5,9 +5,12 @@ import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { ORG } from "@/lib/org";
 import { MobileNav } from "@/components/layout/MobileNav";
+import { SocialIcons } from "@/components/SocialIcons";
+import { getSocialSettings } from "@/lib/social";
 
 export async function Header() {
   const t = await getTranslations("nav");
+  const socials = await getSocialSettings();
 
   const items = [
     { href: "/", label: t("about") },
@@ -43,16 +46,8 @@ export async function Header() {
           </div>
           {/* Mobile fallback */}
           <div className="md:hidden">Pomáháme samoživitelům</div>
-          {/* Facebook – always visible */}
-          <a
-            href={ORG.facebook}
-            className="text-white hover:underline"
-            aria-label="Facebook"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Facebook
-          </a>
+          {/* Social icons – always visible */}
+          <SocialIcons variant="header" links={socials} />
         </Container>
       </div>
 

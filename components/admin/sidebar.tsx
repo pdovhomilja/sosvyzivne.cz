@@ -1,5 +1,5 @@
 "use client";
-import { LayoutDashboard, FileText, Image, Users } from "lucide-react";
+import { LayoutDashboard, FileText, Image, Users, Settings } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { usePathname } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
@@ -9,6 +9,7 @@ const NAV = [
   { href: "/content", label: "Obsah", icon: FileText },
   { href: "/media", label: "Média", icon: Image },
   { href: "/users", label: "Uživatelé", icon: Users },
+  { href: "/settings", label: "Nastavení", icon: Settings },
 ];
 
 export function AdminSidebar() {
