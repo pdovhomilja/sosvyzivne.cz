@@ -13,6 +13,7 @@ const STATIC_PATHS = [
   "/faq",
   "/blog",
   "/kontakt",
+  "/zasady-ochrany-osobnich-udaju",
 ];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
