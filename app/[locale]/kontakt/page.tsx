@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
 import Image from "next/image";
-import { Mail, Phone, MapPin, Clock } from "lucide-react";
+import { Mail, Phone, Clock } from "lucide-react";
 import { Section } from "@/components/ui/container";
 import { CopyAccountButton } from "@/components/contact/CopyAccountButton";
+import { OfficeMap } from "@/components/contact/OfficeMap";
 import { ORG } from "@/lib/org";
 import { pageImages, imgSrc, altText } from "@/lib/stitch-images";
 import { donationQrSvg } from "@/lib/payment-qr";
@@ -169,11 +170,7 @@ export default async function ContactPage({
 
         {/* ── Map placeholder ── */}
         <div className="mt-6 rounded-xl bg-surface-subtle border border-hairline overflow-hidden">
-          <div className="h-56 flex flex-col items-center justify-center gap-3 text-ink-muted">
-            <MapPin size={32} className="text-terracotta" aria-hidden="true" />
-            <span className="text-sm font-medium">Kancelář Kralovice</span>
-            <span className="text-xs">{ORG.office}</span>
-          </div>
+          <OfficeMap query={ORG.office} label="Kancelář Kralovice" />
         </div>
 
       </div>
