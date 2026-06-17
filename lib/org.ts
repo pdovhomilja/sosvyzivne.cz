@@ -16,7 +16,7 @@ export const ORG = {
   donationAccount: "131-1390040247/0100",
   contactPerson: "PhDr. Lenka Ranšová, DiS.",
   tagline: "Pomůžeme vám získat alimenty, na které máte právo!",
-  // NOTE: docs/06 flags a Thursday-hours discrepancy (14:00 vs 16:00) to resolve.
+  // Thursday hours confirmed as 08:00–14:00 (discrepancy in docs/06 resolved).
   hours: [
     { day: "Pondělí", time: "08:00 – 16:00" },
     { day: "Čtvrtek", time: "08:00 – 14:00" },

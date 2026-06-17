@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
 import Image from "next/image";
-import { Mail, Phone, MapPin, Clock } from "lucide-react";
+import { Mail, Phone, Clock } from "lucide-react";
 import { Section } from "@/components/ui/container";
 import { CopyAccountButton } from "@/components/contact/CopyAccountButton";
+import { OfficeMap } from "@/components/contact/OfficeMap";
 import { ORG } from "@/lib/org";
 import { pageImages, imgSrc, altText } from "@/lib/stitch-images";
+import { donationQrSvg } from "@/lib/payment-qr";
 
 export const metadata: Metadata = {
   title: "Podpořte naši činnost – SOS výživné",
@@ -20,6 +22,8 @@ export default async function ContactPage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
+
+  const qrSvg = await donationQrSvg(ORG.donationAccount, "Dar SOS vyzivne");
 
   const homeImages = pageImages("home");
   // home-03 = "Rodič samoživitel" – warm parent/child image
@@ -76,13 +80,11 @@ export default async function ContactPage({
           {/* QR placeholder */}
           <div className="mt-8 flex flex-col sm:flex-row gap-6 items-start">
             <div
-              className="w-36 h-36 shrink-0 rounded-lg bg-surface border-2 border-dashed border-hairline flex items-center justify-center"
-              aria-label="QR kód pro platbu"
-            >
-              <span className="text-ink-muted text-sm text-center leading-snug px-3">
-                QR platba
-              </span>
-            </div>
+              className="w-40 h-40 shrink-0 rounded-lg bg-white border border-hairline p-2 flex items-center justify-center"
+              role="img"
+              aria-label="QR kód pro platbu na účet nadačního fondu"
+              dangerouslySetInnerHTML={{ __html: qrSvg }}
+            />
             <p className="text-ink-muted text-sm leading-relaxed self-center">
               Naskenujte QR kód vaší bankovní aplikací pro rychlou platbu.
               Variabilní symbol není povinný. Do zprávy pro příjemce můžete
@@ -168,11 +170,7 @@ export default async function ContactPage({
 
         {/* ── Map placeholder ── */}
         <div className="mt-6 rounded-xl bg-surface-subtle border border-hairline overflow-hidden">
-          <div className="h-56 flex flex-col items-center justify-center gap-3 text-ink-muted">
-            <MapPin size={32} className="text-terracotta" aria-hidden="true" />
-            <span className="text-sm font-medium">Kancelář Kralovice</span>
-            <span className="text-xs">{ORG.office}</span>
-          </div>
+          <OfficeMap query={ORG.office} label="Kancelář Kralovice" />
         </div>
 
       </div>

@@ -1,6 +1,7 @@
 import { Container } from "@/components/ui/container";
 import { ORG } from "@/lib/org";
 import { CookieSettingsLink } from "@/components/CookieConsent";
+import { Link } from "@/i18n/navigation";
 import { Mail, Phone, MapPin } from "lucide-react";
 
 export function Footer() {
@@ -64,6 +65,12 @@ export function Footer() {
       <div className="bg-surface border-t border-hairline py-4">
         <Container className="flex flex-col items-center justify-center gap-2 text-center text-ink-muted text-sm sm:flex-row sm:gap-4">
           <span>© {new Date().getFullYear()} SOSvyzivne.cz</span>
+          <Link
+            href="/zasady-ochrany-osobnich-udaju"
+            className="hover:text-primary transition-colors"
+          >
+            Zásady ochrany osobních údajů
+          </Link>
           <CookieSettingsLink className="hover:text-primary transition-colors" />
         </Container>
       </div>

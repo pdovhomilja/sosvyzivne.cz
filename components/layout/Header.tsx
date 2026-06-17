@@ -79,14 +79,14 @@ export async function Header() {
 
           {/* Actions */}
           <div className="flex items-center gap-3">
-            {/* Decorative search – no backend, intentionally disabled */}
-            <button
-              disabled
+            {/* Search – links to the search page */}
+            <Link
+              href="/hledat"
               aria-label="Hledat"
-              className="hidden items-center justify-center rounded-md p-2 text-ink-muted opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 md:inline-flex"
+              className="hidden items-center justify-center rounded-md p-2 text-ink-muted hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 md:inline-flex"
             >
               <Search size={18} aria-hidden />
-            </button>
+            </Link>
 
             {/* Kalkulačka – outline, desktop only */}
             <Button

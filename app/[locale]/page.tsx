@@ -10,7 +10,10 @@ import { BlogTeasers } from "@/components/home/BlogTeasers";
 import { MediaStrip } from "@/components/home/MediaStrip";
 import { Testimonials } from "@/components/home/Testimonials";
 
-export const dynamic = "force-dynamic";
+// Revalidate hourly: the ad-landing page must be fast (PageSpeed mobile).
+// Latest blog teasers refresh on the next request after 1h. DB-failure
+// fallback below still renders the page without teasers.
+export const revalidate = 3600;
 
 export default async function HomePage({
   params,
