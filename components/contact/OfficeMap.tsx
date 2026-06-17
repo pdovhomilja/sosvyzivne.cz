@@ -13,7 +13,7 @@ export function OfficeMap({ query, label }: { query: string; label: string }) {
         src={src}
         className="h-56 w-full border-0"
         loading="lazy"
-        referrerPolicy="no-referrer-when-downgrade"
+        referrerPolicy="strict-origin-when-cross-origin"
       />
     );
   }

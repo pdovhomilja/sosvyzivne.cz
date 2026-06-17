@@ -22,7 +22,10 @@ export function accountToIban(account: string): string {
 /** Build a SPD (spayd) string for a donation, no fixed amount. */
 export function buildSpd(account: string, message: string): string {
   const iban = accountToIban(account);
-  return `SPD*1.0*ACC:${iban}*CC:CZK*MSG:${message}`;
+  // `*` is the SPD field delimiter and newlines break the record — strip both
+  // so an arbitrary message can never malform the QR payload.
+  const safeMessage = message.replace(/[*\r\n]/g, " ").trim();
+  return `SPD*1.0*ACC:${iban}*CC:CZK*MSG:${safeMessage}`;
 }
 
 /** Render the donation QR as an inline SVG string (server-side). */
