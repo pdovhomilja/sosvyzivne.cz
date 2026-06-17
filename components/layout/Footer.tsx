@@ -3,8 +3,11 @@ import { ORG } from "@/lib/org";
 import { CookieSettingsLink } from "@/components/CookieConsent";
 import { Link } from "@/i18n/navigation";
 import { Mail, Phone, MapPin } from "lucide-react";
+import { SocialIcons } from "@/components/SocialIcons";
+import { getSocialSettings } from "@/lib/social";
 
-export function Footer() {
+export async function Footer() {
+  const socials = await getSocialSettings();
   return (
     <footer className="bg-surface-subtle border-t border-hairline">
       <Container className="grid grid-cols-1 md:grid-cols-3 gap-8 py-12">
@@ -16,6 +19,7 @@ export function Footer() {
           <p className="text-ink-muted text-sm leading-relaxed max-w-xs">
             {ORG.tagline}
           </p>
+          <SocialIcons variant="footer" links={socials} className="mt-4" />
         </div>
 
         {/* Kontakt column */}
