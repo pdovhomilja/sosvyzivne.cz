@@ -171,3 +171,13 @@ model UserAuditLog {
   @@index([actorId, createdAt])
   @@index([action, createdAt])
 }
+
+// ─────────────────────────── Site Settings ───────────────────────────
+
+model SiteSettings {
+  id           String   @id @default("singleton")
+  facebookUrl  String?
+  instagramUrl String?
+  linkedinUrl  String?
+  updatedAt    DateTime @updatedAt
+}

@@ -51,6 +51,14 @@ export function AboutBlock() {
               >
                 Výroční zpráva 2024
               </a>
+              <a
+                href="/dokumenty/vyrocni-zprava-2025.pdf"
+                target="_blank"
+                rel="noopener"
+                className="inline-flex items-center justify-center border-2 border-terracotta text-terracotta rounded-[var(--radius-pill)] px-6 h-11 font-semibold hover:bg-terracotta hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+              >
+                Výroční zpráva 2025
+              </a>
             </div>
           </div>
 

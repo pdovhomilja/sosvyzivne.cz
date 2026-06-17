@@ -13,6 +13,7 @@ export const ORG = {
   phone: "+420602842888",
   phoneDisplay: "+420 602 842 888",
   facebook: "https://www.facebook.com/SOSvyzivne",
+  instagram: "https://www.instagram.com/sosvyzivne/",
   donationAccount: "131-1390040247/0100",
   contactPerson: "PhDr. Lenka Ranšová, DiS.",
   tagline: "Pomůžeme vám získat alimenty, na které máte právo!",
