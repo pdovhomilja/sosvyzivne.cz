@@ -12,7 +12,8 @@
 export const ContentType = {
   BLOG_POST: 'BLOG_POST',
   FAQ: 'FAQ',
-  PAGE: 'PAGE'
+  PAGE: 'PAGE',
+  ENDORSEMENT: 'ENDORSEMENT'
 } as const
 
 export type ContentType = (typeof ContentType)[keyof typeof ContentType]
