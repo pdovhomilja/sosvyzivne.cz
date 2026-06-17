@@ -12,7 +12,7 @@ export type SocialLinks = {
 /** Seed values shown until the admin saves the singleton row for the first time. */
 export const DEFAULT_SOCIALS: SocialLinks = {
   facebook: ORG.facebook,
-  instagram: "https://www.instagram.com/sosvyzivne/",
+  instagram: ORG.instagram,
   linkedin: null,
 };
 
@@ -31,7 +31,10 @@ export const getSocialSettings = cache(async (): Promise<SocialLinks> => {
       instagram: row.instagramUrl,
       linkedin: row.linkedinUrl,
     };
-  } catch {
+  } catch (err) {
+    // Table not migrated yet or DB outage — serve defaults, but log so the two
+    // cases are distinguishable in ops.
+    console.error("[social] getSocialSettings failed, using defaults:", err);
     return DEFAULT_SOCIALS;
   }
 });

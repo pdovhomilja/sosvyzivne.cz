@@ -8,7 +8,7 @@ const urlOrEmpty = z
   .string()
   .trim()
   .max(500)
-  .refine((v) => v === "" || /^https?:\/\/.+/i.test(v), {
+  .refine((v) => v === "" || z.url().safeParse(v).success, {
     message: "Zadejte platnou URL začínající http(s)://",
   });
 
