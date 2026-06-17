@@ -41,6 +41,9 @@ export function MobileNav({
             </Dialog.Close>
           </div>
           <nav className="flex flex-col gap-4 text-lg">
+            <Link href="/hledat" className="text-ink hover:text-accent" onClick={() => setOpen(false)}>
+              Hledat
+            </Link>
             {items.map((it) => (
               <Link key={it.href} href={it.href} className="text-ink hover:text-accent" onClick={() => setOpen(false)}>
                 {it.label}
