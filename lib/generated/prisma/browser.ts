@@ -57,3 +57,8 @@ export type MediaAsset = Prisma.MediaAssetModel
  * 
  */
 export type UserAuditLog = Prisma.UserAuditLogModel
+/**
+ * Model SiteSettings
+ * 
+ */
+export type SiteSettings = Prisma.SiteSettingsModel
