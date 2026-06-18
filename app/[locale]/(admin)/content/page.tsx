@@ -1,10 +1,29 @@
+import type { SearchParams } from "nuqs/server";
+import type { Prisma } from "@/lib/generated/prisma/client";
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
+import { ContentFilters } from "@/components/cms/content-filters";
+import {
+  loadContentFilter,
+  CONTENT_FILTER_TO_TYPE,
+  STATUS_FILTER_TO_STATUS,
+} from "@/lib/cms/content-filter";
 import db from "@/lib/db";
 
 export const dynamic = "force-dynamic";
 
-export default async function ContentListPage() {
+export default async function ContentListPage({
+  searchParams,
+}: {
+  searchParams: Promise<SearchParams>;
+}) {
+  const { type: typeFilter, status: statusFilter } =
+    await loadContentFilter(searchParams);
+  const where: Prisma.ContentWhereInput = {};
+  if (typeFilter !== "all") where.type = CONTENT_FILTER_TO_TYPE[typeFilter];
+  if (statusFilter !== "all")
+    where.status = STATUS_FILTER_TO_STATUS[statusFilter];
+
   let rows: Array<{
     id: string;
     type: string;
@@ -15,6 +34,7 @@ export default async function ContentListPage() {
   }> = [];
   try {
     rows = await db.content.findMany({
+      where,
       orderBy: { updatedAt: "desc" },
       select: {
         id: true,
@@ -25,8 +45,8 @@ export default async function ContentListPage() {
         updatedAt: true,
       },
     });
-  } catch {
-    // DB not connected.
+  } catch (err) {
+    console.error("[admin/content] failed to load content list:", err);
   }
 
   return (
@@ -36,6 +56,10 @@ export default async function ContentListPage() {
         <Button asChild size="sm">
           <Link href="/content/new">+ Nový obsah</Link>
         </Button>
+      </div>
+
+      <div className="mt-6">
+        <ContentFilters />
       </div>
 
       <div className="mt-6 overflow-hidden rounded-[var(--radius-md)] border border-border bg-surface">
