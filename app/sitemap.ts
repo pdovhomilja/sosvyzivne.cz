@@ -29,8 +29,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ]);
     for (const slug of posts) entries.push({ url: `${baseUrl}/blog/${slug}` });
     for (const slug of faqs) entries.push({ url: `${baseUrl}/faq/${slug}` });
-  } catch {
-    // DB not connected — emit static routes only.
+  } catch (err) {
+    console.error("[sitemap] failed to load dynamic routes, emitting static only:", err);
   }
 
   return entries;

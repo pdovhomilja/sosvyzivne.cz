@@ -14,8 +14,8 @@ export default async function MediaPage() {
       select: { id: true, url: true, alt: true, width: true, height: true },
       take: 60,
     });
-  } catch {
-    // DB not connected.
+  } catch (err) {
+    console.error("[admin/media] failed to load media assets:", err);
   }
 
   return (

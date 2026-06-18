@@ -12,8 +12,8 @@ export default async function DashboardPage() {
       db.user.count({ where: { isActive: true } }),
     ]);
     counts = { blog, faq, drafts, users };
-  } catch {
-    // DB not connected.
+  } catch (err) {
+    console.error("[admin/dashboard] failed to load counts:", err);
   }
 
   const cards = [

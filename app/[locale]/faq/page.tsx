@@ -23,8 +23,8 @@ export default async function FaqPage({
   let faqs: FaqItem[] = [];
   try {
     faqs = await getFaqs(locale);
-  } catch {
-    // DB not connected — render empty state.
+  } catch (err) {
+    console.error("[faq] failed to load FAQs:", err);
   }
 
   const jsonLd = {

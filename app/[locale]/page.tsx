@@ -26,15 +26,15 @@ export default async function HomePage({
   let latest: Awaited<ReturnType<typeof getLatestPosts>> = [];
   try {
     latest = await getLatestPosts(locale, 3);
-  } catch {
-    // DB not connected yet — render without blog teasers.
+  } catch (err) {
+    console.error("[home] failed to load latest posts:", err);
   }
 
   let endorsements: Awaited<ReturnType<typeof getEndorsements>> = [];
   try {
     endorsements = await getEndorsements(locale);
-  } catch {
-    // DB not connected yet — render without testimonials.
+  } catch (err) {
+    console.error("[home] failed to load endorsements:", err);
   }
 
   return (
