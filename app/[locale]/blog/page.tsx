@@ -37,8 +37,8 @@ export default async function BlogPage({
   };
   try {
     data = await getPublishedPosts({ locale, page });
-  } catch {
-    // DB not connected — render empty state.
+  } catch (err) {
+    console.error("[blog] failed to load published posts:", err);
   }
 
   return (

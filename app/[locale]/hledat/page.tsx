@@ -29,8 +29,8 @@ export default async function SearchPage({
   if (query.length >= 2) {
     try {
       results = await searchContent(locale, query);
-    } catch {
-      // DB not connected — show empty results.
+    } catch (err) {
+      console.error("[search] failed to query content:", err);
     }
   }
 

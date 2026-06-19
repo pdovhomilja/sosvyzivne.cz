@@ -16,8 +16,8 @@ export default async function UsersPage() {
       orderBy: { createdAt: "asc" },
       select: { id: true, name: true, email: true, isAdmin: true, isActive: true },
     });
-  } catch {
-    // DB not connected.
+  } catch (err) {
+    console.error("[admin/users] failed to load users:", err);
   }
 
   return (
