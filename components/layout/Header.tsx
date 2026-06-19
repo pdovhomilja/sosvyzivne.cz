@@ -1,4 +1,5 @@
 import { getTranslations } from "next-intl/server";
+import Image from "next/image";
 import { Phone, Mail, Search } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { Container } from "@/components/ui/container";
@@ -55,8 +56,19 @@ export async function Header() {
       <header className="sticky top-0 z-30 bg-surface border-b border-hairline">
         <Container className="flex items-center justify-between gap-4 py-4">
           {/* Logo */}
-          <Link href="/" className="font-heading text-2xl font-bold text-ink">
-            {ORG.shortName}
+          <Link
+            href="/"
+            aria-label={`${ORG.shortName} – domů`}
+            className="shrink-0 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+          >
+            <Image
+              src="/logo/sos-logo.png"
+              alt={ORG.shortName}
+              width={800}
+              height={162}
+              priority
+              className="h-9 w-auto"
+            />
           </Link>
 
           {/* Desktop nav */}
