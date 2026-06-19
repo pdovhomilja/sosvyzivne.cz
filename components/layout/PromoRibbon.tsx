@@ -9,7 +9,10 @@ export function PromoRibbon() {
   return (
     <div className="bg-peach-light text-ink">
       <div className="mx-auto flex w-full max-w-[var(--container-max)] items-center justify-center gap-3 px-4 py-2 text-sm">
-        <Link href="/kontakt" className="text-accent hover:underline">
+        <Link
+          href="/blog/nahradni-vyzivne-pomoc-proti-neplaticum"
+          className="text-accent hover:underline"
+        >
           Stát uhradí za neplatiče výživné → více informací
         </Link>
         <button
