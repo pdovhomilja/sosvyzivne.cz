@@ -20,7 +20,8 @@ export async function Header() {
     { href: "/kontakt", label: t("support") },
   ];
 
-  const navLinkClass = "text-ink transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-sm";
+  const navLinkClass =
+    "text-ink transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-sm";
 
   return (
     <>
@@ -46,7 +47,9 @@ export async function Header() {
             <span className="flex items-center gap-1">Pracovní doba</span>
           </div>
           {/* Mobile fallback */}
-          <div className="md:hidden">Pomáháme samoživitelům</div>
+          <div className="md:hidden">
+            Pomáháme rodičům v těžké životní situaci.
+          </div>
           {/* Social icons – always visible */}
           <SocialIcons variant="header" links={socials} />
         </Container>
@@ -72,13 +75,12 @@ export async function Header() {
           </Link>
 
           {/* Desktop nav */}
-          <nav className="hidden items-center gap-8 text-base md:flex" aria-label="Hlavní navigace">
+          <nav
+            className="hidden items-center gap-8 text-base md:flex"
+            aria-label="Hlavní navigace"
+          >
             {items.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={navLinkClass}
-              >
+              <Link key={item.href} href={item.href} className={navLinkClass}>
                 {item.label}
               </Link>
             ))}
@@ -107,7 +109,9 @@ export async function Header() {
 
             {/* Chci pomoc – pink pill, always visible */}
             <Button asChild size="sm">
-              <Link href="/chci-pomoc-s-vymahanim-vyzivneho">{t("getHelp")}</Link>
+              <Link href="/chci-pomoc-s-vymahanim-vyzivneho">
+                {t("getHelp")}
+              </Link>
             </Button>
 
             {/* Mobile hamburger – rendered by MobileNav (md:hidden internally) */}
