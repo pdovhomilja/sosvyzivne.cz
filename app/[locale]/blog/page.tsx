@@ -83,15 +83,24 @@ export default async function BlogPage({
                     key={p.id}
                     className="flex flex-col group cursor-pointer rounded-lg overflow-hidden border border-transparent hover:border-hairline bg-white transition-transform transition-shadow duration-200 hover:-translate-y-1 hover:shadow-lg"
                   >
-                    {/* Thumbnail */}
+                    {/* Thumbnail — post cover if set, otherwise illustrative stock image */}
                     <div className="relative aspect-[16/10] overflow-hidden rounded-t-lg">
-                      <Image
-                        src={imgSrc(img)}
-                        alt={altText(img)}
-                        fill
-                        className="object-cover group-hover:scale-105 transition-transform duration-500"
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      />
+                      {p.coverImage ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img
+                          src={p.coverImage}
+                          alt={p.title}
+                          className="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                      ) : (
+                        <Image
+                          src={imgSrc(img)}
+                          alt={altText(img)}
+                          fill
+                          className="object-cover group-hover:scale-105 transition-transform duration-500"
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        />
+                      )}
                     </div>
 
                     {/* Body */}

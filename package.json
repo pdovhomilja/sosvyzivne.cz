@@ -16,6 +16,7 @@
     "db:studio": "prisma studio",
     "seed:admins": "tsx scripts/seed-admins.ts",
     "seed:content": "tsx scripts/seed-content.ts",
+    "seed:media-stock": "tsx scripts/upload-stock-media.ts",
     "import:legacy": "tsx scripts/import-legacy-content.ts"
   },
   "dependencies": {

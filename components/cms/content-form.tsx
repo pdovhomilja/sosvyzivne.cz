@@ -8,6 +8,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import { TiptapEditor } from "@/components/cms/tiptap-editor";
+import { MediaPicker } from "@/components/cms/media-picker";
 
 type ContentValues = {
   id?: string;
@@ -167,6 +169,55 @@ export function ContentForm({ initial }: { initial?: Partial<ContentValues> }) {
         </div>
       )}
 
+      {v.type === "BLOG_POST" && (
+        <div className="space-y-1">
+          <Label>Úvodní obrázek (cover)</Label>
+          <div className="flex flex-wrap items-center gap-4">
+            {v.coverImage ? (
+              <>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={v.coverImage}
+                  alt=""
+                  className="h-24 w-40 rounded-[var(--radius-sm)] border border-border object-cover"
+                />
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => set("coverImage", "")}
+                >
+                  Odebrat
+                </Button>
+              </>
+            ) : (
+              <Input
+                type="file"
+                accept="image/*"
+                disabled={isUploading}
+                className="max-w-xs"
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (file) startUpload([file]);
+                }}
+              />
+            )}
+            <MediaPicker
+              label={v.coverImage ? "Změnit z knihovny" : "Vybrat z knihovny"}
+              onChange={(url) => set("coverImage", url)}
+            />
+            {isUploading && (
+              <span className="text-sm text-ink-muted">Nahrávám…</span>
+            )}
+          </div>
+          <p className="text-sm text-ink-muted">
+            Nahrajte nový obrázek nebo vyberte z knihovny médií. Zobrazí se v
+            přehledu článků a jako hlavní obrázek na detailu. Nepovinné — bez něj
+            se použije ilustrační obrázek.
+          </p>
+        </div>
+      )}
+
       {isFaq && (
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-1">
@@ -284,15 +335,18 @@ export function ContentForm({ initial }: { initial?: Partial<ContentValues> }) {
       <div className="space-y-1">
         <Label htmlFor="body">
           {isFaq ? "Odpověď" : isEndorsement ? "Citace" : "Obsah"}
-          {!isEndorsement && " (HTML)"}
         </Label>
-        {/* TODO: replace with TipTap editor (components/cms/tiptap-editor). */}
-        <Textarea
-          id="body"
-          rows={isEndorsement ? 5 : 12}
-          value={v.body}
-          onChange={(e) => set("body", e.target.value)}
-        />
+        {isEndorsement ? (
+          // Endorsements are a short plain-text quote — no rich formatting.
+          <Textarea
+            id="body"
+            rows={5}
+            value={v.body}
+            onChange={(e) => set("body", e.target.value)}
+          />
+        ) : (
+          <TiptapEditor value={v.body} onChange={(html) => set("body", html)} />
+        )}
       </div>
 
       {!isEndorsement && (

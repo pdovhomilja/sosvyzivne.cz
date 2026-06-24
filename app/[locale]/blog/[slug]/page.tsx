@@ -18,9 +18,11 @@ export async function generateMetadata({
   const { locale, slug } = await params;
   const post = await getPostBySlug(locale, slug).catch(() => null);
   if (!post) return { title: "Článek nenalezen – SOS výživné" };
+  const ogImage = post.ogImage ?? post.coverImage ?? undefined;
   return {
     title: `${post.metaTitle ?? post.title} – SOS výživné`,
     description: post.metaDescription ?? post.excerpt ?? undefined,
+    openGraph: ogImage ? { images: [{ url: ogImage }] } : undefined,
   };
 }
 
@@ -45,6 +47,7 @@ export default async function BlogPostPage({
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     headline: post.title,
+    image: post.coverImage ?? undefined,
     datePublished: post.publishedAt?.toISOString(),
     dateModified: post.updatedAt.toISOString(),
   };
@@ -104,6 +107,20 @@ export default async function BlogPostPage({
         </header>
       </section>
 
+      {/* Cover image — only when the post has one */}
+      {post.coverImage && (
+        <section className="mx-auto w-full max-w-[1200px] px-4 sm:px-6 pb-12">
+          <div className="mx-auto max-w-[800px] aspect-[16/9] overflow-hidden rounded-xl">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={post.coverImage}
+              alt={post.title}
+              className="h-full w-full object-cover"
+            />
+          </div>
+        </section>
+      )}
+
       {/* Article body — single column, prose width */}
       <section className="mx-auto w-full max-w-[1200px] px-4 sm:px-6 pb-24">
         <article className="mx-auto max-w-[720px]">
@@ -130,15 +147,24 @@ export default async function BlogPostPage({
                     key={article.slug}
                     className="bg-white rounded-xl overflow-hidden shadow-sm group hover:-translate-y-1 transition-all"
                   >
-                    {img && (
+                    {(article.coverImage || img) && (
                       <div className="h-48 overflow-hidden relative">
-                        <Image
-                          src={imgSrc(img)}
-                          alt={altText(img)}
-                          fill
-                          className="object-cover group-hover:scale-105 transition-transform duration-500"
-                          sizes="(max-width: 768px) 100vw, 33vw"
-                        />
+                        {article.coverImage ? (
+                          // eslint-disable-next-line @next/next/no-img-element
+                          <img
+                            src={article.coverImage}
+                            alt={article.title}
+                            className="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          />
+                        ) : (
+                          <Image
+                            src={imgSrc(img)}
+                            alt={altText(img)}
+                            fill
+                            className="object-cover group-hover:scale-105 transition-transform duration-500"
+                            sizes="(max-width: 768px) 100vw, 33vw"
+                          />
+                        )}
                       </div>
                     )}
                     <div className="p-6">
