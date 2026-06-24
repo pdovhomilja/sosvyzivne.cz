@@ -15,6 +15,24 @@ function fileKeyFromUrl(url: string): string | null {
   }
 }
 
+export type MediaAssetListItem = {
+  id: string;
+  url: string;
+  alt: string | null;
+  width: number | null;
+  height: number | null;
+};
+
+/** List uploaded media assets for the in-form picker (newest first). */
+export async function listMediaAssets(): Promise<MediaAssetListItem[]> {
+  await requireAdmin();
+  return db.mediaAsset.findMany({
+    orderBy: { createdAt: "desc" },
+    select: { id: true, url: true, alt: true, width: true, height: true },
+    take: 100,
+  });
+}
+
 export type MediaUsage = {
   id: string;
   title: string;
