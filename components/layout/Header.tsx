@@ -44,7 +44,6 @@ export async function Header() {
               <Phone size={14} aria-hidden />
               {ORG.phoneDisplay}
             </a>
-            <span className="flex items-center gap-1">Pracovní doba</span>
           </div>
           {/* Mobile fallback */}
           <div className="md:hidden">
