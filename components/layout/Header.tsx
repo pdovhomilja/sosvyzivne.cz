@@ -14,7 +14,7 @@ export async function Header() {
   const socials = await getSocialSettings();
 
   const items = [
-    { href: "/", label: t("about") },
+    { href: "/#o-nas", label: t("about") },
     { href: "/faq", label: t("faq") },
     { href: "/blog", label: t("blog") },
     { href: "/kontakt", label: t("support") },
@@ -66,9 +66,9 @@ export async function Header() {
             <Image
               src="/logo/sos-logo.png"
               alt={ORG.shortName}
-              width={800}
-              height={162}
-              priority
+              width={178}
+              height={36}
+              loading="eager"
               className="h-9 w-auto"
             />
           </Link>
