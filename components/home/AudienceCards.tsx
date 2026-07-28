@@ -44,6 +44,7 @@ export function AudienceCards() {
                   alt={altText(cardImgs[i])}
                   width={600}
                   height={600}
+                  sizes="(min-width: 768px) 350px, 80vw"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
               </div>

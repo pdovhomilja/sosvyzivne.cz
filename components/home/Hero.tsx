@@ -17,7 +17,8 @@ export function Hero() {
           alt={altText(heroImg)}
           fill
           className="object-cover"
-          priority
+          loading="eager"
+          fetchPriority="high"
           aria-hidden="true"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-white/90 via-white/50 to-transparent" />
@@ -33,9 +34,16 @@ export function Hero() {
             <p className="text-xl text-ink-muted mb-8 leading-relaxed">
               Pomáháme vám zajistit budoucnost vašich dětí s klidem a jistotou. Bezplatně, lidsky a s profesionální péčí.
             </p>
-            <Button asChild size="lg">
-              <Link href="#jak">Jak začít?</Link>
-            </Button>
+            <div className="flex flex-wrap items-center gap-4">
+              <Button asChild size="lg">
+                <Link href="/chci-pomoc-s-vymahanim-vyzivneho">
+                  Chci pomoc s vymáháním výživného
+                </Link>
+              </Button>
+              <Button asChild variant="outline" size="lg">
+                <Link href="#jak">Jak začít?</Link>
+              </Button>
+            </div>
           </div>
         </Container>
       </div>

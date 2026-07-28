@@ -8,7 +8,7 @@ export function AboutBlock() {
   const aboutImg = imgs[1];
 
   return (
-    <section className="py-24 bg-white">
+    <section id="o-nas" className="py-24 bg-white scroll-mt-24">
       <Container>
         <div className="grid md:grid-cols-2 gap-16 items-center">
           {/* Text column */}
