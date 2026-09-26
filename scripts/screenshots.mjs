@@ -20,7 +20,15 @@ for (const p of paths) {
     const page = await browser.newPage();
     await page.setViewport({ width, height: 900, deviceScaleFactor: 1, isMobile: width < 768 });
     await page.goto(BASE + p, { waitUntil: "load", timeout: 60000 });
-    await new Promise((r) => setTimeout(r, 700));
+    // Scroll through the page so lazy images load before the full-page capture.
+    await page.evaluate(async () => {
+      for (let y = 0; y < document.body.scrollHeight; y += 600) {
+        window.scrollTo(0, y);
+        await new Promise((r) => setTimeout(r, 60));
+      }
+      window.scrollTo(0, 0);
+    });
+    await new Promise((r) => setTimeout(r, 900));
     const overflow = await page.evaluate(() => {
       const w = document.documentElement.clientWidth;
       return [...document.querySelectorAll("body *")]
