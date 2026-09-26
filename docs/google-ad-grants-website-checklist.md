@@ -18,7 +18,7 @@ Context: application rejected 9 Jul 2026 with the generic "website policy" reaso
 
 ### Before resubmitting
 
-1. Lenka confirms the claims below on the preview. The live production build (`VERCEL_ENV=production`) **fails** while any remain; this is intentional.
+1. Lenka confirms the claims below on a review deployment built with `pnpm build:review` (sets `ALLOW_UNVERIFIED=1`). A normal production build (`pnpm build`, which the live server uses) **fails** while any remain; this is intentional. Never set `ALLOW_UNVERIFIED` on the live server.
    - /jak-pomahame/vymahani-vyzivneho: i zpětně (promlčení); kdo nese náklady exekuce; platby jdou přímo klientovi; zahraničí
    - /jak-pomahame/nahradni-vyzivne: rozsah pomoci SOS výživné s náhradním výživným; podmínky nároku
    - /jak-pomahame/zvyseni-vyzivneho: SOS výživné připravuje návrhy na zvýšení

@@ -19,7 +19,8 @@
     "import:legacy": "tsx scripts/import-legacy-content.ts",
     "test": "vitest run",
     "check:links": "linkinator http://localhost:3000 --recurse --skip \"^(?!http://localhost:3000)\" --skip \"/dokumenty/\" --verbosity error",
-    "shots": "node scripts/screenshots.mjs"
+    "shots": "node scripts/screenshots.mjs",
+    "build:review": "ALLOW_UNVERIFIED=1 pnpm build"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.4.0",
