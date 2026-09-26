@@ -34,7 +34,13 @@ for (const p of paths) {
       return [...document.querySelectorAll("body *")]
         .filter((e) => {
           const r = e.getBoundingClientRect();
-          return r.width > 0 && r.right > w + 1 && !e.closest("[data-overflow-ok]");
+          if (!(r.width > 0 && r.right > w + 1) || e.closest("[data-overflow-ok]")) return false;
+          // Content inside its own horizontal scroll box (e.g. a wide table) is allowed.
+          for (let p = e.parentElement; p && p !== document.body; p = p.parentElement) {
+            const ox = getComputedStyle(p).overflowX;
+            if ((ox === "auto" || ox === "scroll") && p.getBoundingClientRect().right <= w + 1) return false;
+          }
+          return true;
         })
         .slice(0, 5)
         .map((e) => `${e.tagName}.${e.className}`.slice(0, 80));

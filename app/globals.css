@@ -123,6 +123,23 @@
   color: var(--color-rose);
   text-decoration: underline;
 }
+.prose-cms {
+  overflow-wrap: anywhere;
+}
+/* CMS tables scroll inside their own box on narrow screens (spec §7). */
+.prose-cms table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+  margin: 0 0 1em;
+}
+.prose-cms th,
+.prose-cms td {
+  border: 1px solid #e6d6c6;
+  padding: 0.4em 0.7em;
+  overflow-wrap: normal;
+}
 
 /* Respect reduced-motion preferences. */
 @media (prefers-reduced-motion: reduce) {
