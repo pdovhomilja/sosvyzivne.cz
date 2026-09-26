@@ -49,7 +49,7 @@ All service/about/report pages are static TSX with content in typed data files (
 
 ## 4. Design system
 
-Tokens replace the current `@theme` block in `app/globals.css` (Stitch aliases removed once nothing references them).
+B6 tokens are **added** to the `@theme` block in `app/globals.css` under new names; the existing semantic tokens (`primary`, `ink`, `surface`, `border`, `accent`, `secondary-tint`, `hairline`, `surface-subtle`, …) stay because admin, CMS and `components/ui` use them. Stitch-only aliases are removed once nothing references them. `--font-heading` and `--font-body` are remapped to Hanken Grotesk (admin headings follow).
 
 | Token | Value | Use |
 |---|---|---|
@@ -57,10 +57,10 @@ Tokens replace the current `@theme` block in `app/globals.css` (Stitch aliases r
 | `--color-plum-2` | `#5A2D3D` | hover, borders on dark |
 | `--color-rose` | `#A8454D` | labels, links, accent words |
 | `--color-rose-2` | `#B45658` | highlight pill (`.hl`) background |
-| `--color-peach` | `#F5D7A8` | accent on dark, chips |
+| `--color-honey` | `#F5D7A8` | accent on dark, chips (named `honey` because `peach` is an existing alias) |
 | `--color-cream` | `#FBF3EA` | page background |
 | `--color-sand` | `#F3E5D4` | step cards, soft fills |
-| `--color-ink` / `--color-ink-2` | `#2A1720` / `#6A4B55` | body text / secondary text |
+| `--color-wine` / `--color-wine-muted` | `#2A1720` / `#6A4B55` | body text / secondary text on public pages |
 | sky gradient | `#AEBBCC → #D9CBC0 → #F2D3B0 → #E5A27F → #B45658 → #6E2F40` | homepage hero only; lighter variant for inner-page heads |
 
 - **Fonts** via `next/font/google` with `latin-ext`: **Hanken Grotesk** 400/500/600/700 (UI, headings) and **Instrument Serif** italic (accent words only). Replaces Playfair Display + Open Sans.
@@ -69,7 +69,7 @@ Tokens replace the current `@theme` block in `app/globals.css` (Stitch aliases r
 - **Contrast:** all text AA. Text on the hero gradient stays plum on the light part; cream text only on the plum/rose part.
 - **Motion:** hover transitions only; no scroll animations; `prefers-reduced-motion` respected.
 
-**Components** (new, `components/site/`): `SiteHeader` (glass pill menu, mobile sheet), `SiteFooter` (legal block with IČO/DS/seat/office/account/hours), `Button` (plum / glass / cream), `NoteChip`, `Accent`, `Highlight`, `PhotoFrame` (polaroid, rotation prop), `OrgBar` (hero bottom strip), `SectionHead`, `TopicCard`, `StepCards`, `StatTile`, `TeamGrid`, `GuideCard`, `PostCard`, `ServiceArticle` (inner-page template: head + checklist + flow + price box + FAQ + sticky side CTA), `Verify` (marker for unconfirmed claims, see §7).
+**Components** (new, `components/site/`): `SiteHeader` (glass pill menu, mobile sheet), restyled `CookieConsent`, `SiteFooter` (legal block with IČO/DS/seat/office/account/hours), `Button` (plum / glass / cream), `NoteChip`, `Accent`, `Highlight`, `PhotoFrame` (polaroid, rotation prop), `OrgBar` (hero bottom strip), `SectionHead`, `TopicCard`, `StepCards`, `StatTile`, `TeamGrid`, `GuideCard`, `PostCard`, `ServiceArticle` (inner-page template: head + checklist + flow + price box + FAQ + sticky side CTA), `Verify` (marker for unconfirmed claims, see §7).
 
 ## 5. Homepage sections (order as mockup)
 
@@ -80,6 +80,7 @@ Tokens replace the current `@theme` block in `app/globals.css` (Stitch aliases r
 5. Náš tým — six real portraits.
 6. Průvodce (připravujeme) → `/pruvodce`.
 7. Z poradny — 3 latest published blog posts from CMS (ISR).
+7b. Client endorsements from the CMS (`getEndorsements`), rendered only when at least one is published; hidden otherwise.
 8. Podpořte nás — account + link.
 9. Footer.
 
@@ -97,7 +98,7 @@ Tokens replace the current `@theme` block in `app/globals.css` (Stitch aliases r
 | Substantial content | New pages §3; annual reports as HTML, PDFs only as downloads. |
 | Clear mission | Hero + OrgBar + `/o-nas` + footer legal block; `NGO` JSON-LD (name, IČO, address, telephone, sameAs) in the root layout. |
 | No broken links / dead UI | No disabled or placeholder controls; `linkinator` crawl of `next start` in CI (`pnpm check:links`) fails on any 4xx/5xx internal link. `<Verify>` renders a visible marker in development and preview deployments (so Lenka sees what to confirm) and throws when `VERCEL_ENV === "production"`, so unconfirmed claims cannot reach the live site. |
-| Speed | Marketing pages static or ISR (`revalidate = 3600`); replace `force-dynamic` on `/blog`, `/blog/[slug]`, `/faq`, `/faq/[slug]` with ISR + `generateStaticParams`. No client JS on marketing pages except mobile menu, consent banner and PostHog (after consent). Target mobile PSI ≥ 90, LCP < 2.5 s. |
+| Speed | Marketing pages static or ISR (`revalidate = 3600`); replace `force-dynamic` on `/blog/[slug]`, `/faq`, `/faq/[slug]` with ISR (`revalidate = 3600`, `generateStaticParams` returning `[]` so pages build on first request and never need the DB at build time). `/blog` stays dynamic because it paginates via `?page=`; it is not an ad landing page. No client JS on marketing pages except mobile menu, consent banner and PostHog (after consent). Target mobile PSI ≥ 90, LCP < 2.5 s. |
 | Mobile | Verified at 320, 390, 768, 1440 px; no horizontal scroll. |
 | HTTPS | Already enforced; check for mixed content after deploy. |
 | Donations | `/podporte-nas` with transparent account + working QR; no external donation redirects. |
