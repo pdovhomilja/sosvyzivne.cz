@@ -23,6 +23,7 @@ const instrument = Instrument_Serif({
   subsets: ["latin", "latin-ext"],
   weight: "400",
   style: ["italic", "normal"],
+  preload: false,
 });
 
 const baseUrl = (
