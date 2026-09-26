@@ -2,12 +2,18 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
-import { Section } from "@/components/ui/container";
 import { RichText } from "@/components/cms/RichText";
 import { getFaqBySlug } from "@/lib/cms/faq";
-import { SiteHeader } from "@/components/site/SiteHeader";
+import { PageHead } from "@/components/site/PageHead";
+import { Container } from "@/components/site/Container";
+import { SideCta } from "@/components/site/ServiceArticle";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 3600;
+
+// Pages build on first request and are cached; the build never needs the DB.
+export async function generateStaticParams() {
+  return [];
+}
 
 export async function generateMetadata({
   params,
@@ -33,19 +39,19 @@ export default async function FaqAnswerPage({
 
   return (
     <>
-    <SiteHeader />
-    <Section>
-      <article className="mx-auto max-w-2xl">
-        <nav className="text-sm text-ink-muted">
-          <Link href="/faq" className="hover:underline">
-            Často kladené dotazy
-          </Link>{" "}
-          ›
-        </nav>
-        <h1 className="mt-2 text-3xl">{faq.question}</h1>
-        <RichText html={faq.answer} className="mt-6" />
-      </article>
-    </Section>
+      <PageHead crumbs={[{ href: "/faq", label: "Poradna" }]} title={faq.question} />
+      <Container className="grid items-start gap-10 pt-10 lg:grid-cols-[1.65fr_1fr] lg:gap-14 lg:pt-[72px]">
+        <article className="min-w-0">
+          <RichText html={faq.answer} className="prose-cms mt-0 max-w-[68ch]" />
+          <p className="mt-8">
+            <Link href="/faq" className="font-semibold text-rose underline underline-offset-4">
+              Další otázky v poradně
+            </Link>
+          </p>
+        </article>
+        <SideCta />
+      </Container>
+      <div className="h-[72px] lg:h-28" />
     </>
   );
 }

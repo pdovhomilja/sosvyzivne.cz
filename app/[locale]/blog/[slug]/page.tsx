@@ -1,21 +1,22 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { notFound } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
-import { Link } from "@/i18n/navigation";
 import { RichText } from "@/components/cms/RichText";
 import { getPostBySlug, getLatestPosts } from "@/lib/cms/blog";
-import { pageImages, imgSrc, altText } from "@/lib/stitch-images";
-import { Calendar, ChevronRight } from "lucide-react";
-import { SiteHeader } from "@/components/site/SiteHeader";
+import { IMG, type ImageKey } from "@/lib/site/images";
+import { PageHead } from "@/components/site/PageHead";
+import { Container } from "@/components/site/Container";
+import { PostCard } from "@/components/site/PostCard";
+import { SideCta } from "@/components/site/ServiceArticle";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 3600;
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string; slug: string }>;
-}): Promise<Metadata> {
+// Pages build on first request and are cached; the build never needs the DB.
+export async function generateStaticParams() {
+  return [];
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string; slug: string }> }): Promise<Metadata> {
   const { locale, slug } = await params;
   const post = await getPostBySlug(locale, slug).catch(() => null);
   if (!post) return { title: "Článek nenalezen – SOS výživné" };
@@ -27,13 +28,9 @@ export async function generateMetadata({
   };
 }
 
-const articleImages = pageImages("article");
+const FALLBACK: ImageKey[] = ["blogWalk", "blogStreet", "heroPaperwork"];
 
-export default async function BlogPostPage({
-  params,
-}: {
-  params: Promise<{ locale: string; slug: string }>;
-}) {
+export default async function BlogPostPage({ params }: { params: Promise<{ locale: string; slug: string }> }) {
   const { locale, slug } = await params;
   setRequestLocale(locale);
 
@@ -54,145 +51,51 @@ export default async function BlogPostPage({
   };
 
   const publishedLabel = post.publishedAt
-    ? post.publishedAt.toLocaleDateString("cs-CZ", {
-        day: "numeric",
-        month: "long",
-        year: "numeric",
-      })
+    ? post.publishedAt.toLocaleDateString("cs-CZ", { day: "numeric", month: "long", year: "numeric" })
     : null;
 
   return (
     <>
-      <SiteHeader />
-      {/* Breadcrumb & Hero */}
-      <section className="mx-auto w-full max-w-[1200px] px-4 sm:px-6 pt-12 pb-8">
-        <nav
-          className="mb-8 text-ink-muted text-sm flex items-center flex-wrap gap-1"
-          aria-label="Drobečková navigace"
-        >
-          <Link
-            href="/"
-            className="hover:text-primary transition-colors focus-visible:outline-2 focus-visible:outline-primary rounded"
-          >
-            Domů
-          </Link>
-          <span className="mx-1 select-none" aria-hidden="true">›</span>
-          <Link
-            href="/blog"
-            className="hover:text-primary transition-colors focus-visible:outline-2 focus-visible:outline-primary rounded"
-          >
-            Blog
-          </Link>
-          <span className="mx-1 select-none" aria-hidden="true">›</span>
-          <span className="text-ink">{post.title}</span>
-        </nav>
-
-        <header className="max-w-[800px] mx-auto text-center mb-16">
-          <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-ink mb-6 leading-tight">
-            {post.title}
-          </h1>
-          <div className="flex items-center justify-center gap-4 text-ink-muted text-sm flex-wrap">
-            <span className="font-medium">Redakce SOS výživné</span>
-            {publishedLabel && (
-              <>
-                <span
-                  className="w-1 h-1 rounded-full bg-hairline"
-                  aria-hidden="true"
-                />
-                <span className="flex items-center gap-1">
-                  <Calendar size={14} aria-hidden="true" />
-                  {publishedLabel}
-                </span>
-              </>
-            )}
-          </div>
-        </header>
-      </section>
-
-      {/* Cover image — only when the post has one */}
-      {post.coverImage && (
-        <section className="mx-auto w-full max-w-[1200px] px-4 sm:px-6 pb-12">
-          <div className="mx-auto max-w-[800px] aspect-[16/9] overflow-hidden rounded-xl">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={post.coverImage}
-              alt={post.title}
-              className="h-full w-full object-cover"
-            />
-          </div>
-        </section>
-      )}
-
-      {/* Article body — single column, prose width */}
-      <section className="mx-auto w-full max-w-[1200px] px-4 sm:px-6 pb-24">
-        <article className="mx-auto max-w-[720px]">
-          <RichText html={post.body} className="mt-0 prose-cms" />
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-          />
+      <PageHead
+        crumbs={[{ href: "/blog", label: "Blog" }]}
+        title={post.title}
+        lead={
+          <p className="text-[15px] text-plum-2">
+            Redakce SOS výživné{publishedLabel ? ` · ${publishedLabel}` : ""}
+          </p>
+        }
+      />
+      <Container className="grid items-start gap-10 pt-10 lg:grid-cols-[1.65fr_1fr] lg:gap-14 lg:pt-[72px]">
+        <article className="min-w-0">
+          {post.coverImage && (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={post.coverImage} alt="" className="mb-8 aspect-[16/9] w-full rounded-3xl object-cover" />
+          )}
+          <RichText html={post.body} className="prose-cms mt-0 max-w-[68ch]" />
+          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
         </article>
-      </section>
+        <SideCta />
+      </Container>
 
-      {/* Related Articles */}
       {related.length > 0 && (
-        <section className="bg-surface-subtle py-20 border-y border-hairline">
-          <div className="mx-auto w-full max-w-[1200px] px-4 sm:px-6">
-            <h2 className="font-heading text-4xl font-bold text-center text-ink mb-12">
-              Mohlo by vás zajímat
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {related.map((article, idx) => {
-                const img = articleImages[idx];
-                return (
-                  <div
-                    key={article.slug}
-                    className="bg-white rounded-xl overflow-hidden shadow-sm group hover:-translate-y-1 transition-all"
-                  >
-                    {(article.coverImage || img) && (
-                      <div className="h-48 overflow-hidden relative">
-                        {article.coverImage ? (
-                          // eslint-disable-next-line @next/next/no-img-element
-                          <img
-                            src={article.coverImage}
-                            alt={article.title}
-                            className="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-500"
-                          />
-                        ) : (
-                          <Image
-                            src={imgSrc(img)}
-                            alt={altText(img)}
-                            fill
-                            className="object-cover group-hover:scale-105 transition-transform duration-500"
-                            sizes="(max-width: 768px) 100vw, 33vw"
-                          />
-                        )}
-                      </div>
-                    )}
-                    <div className="p-6">
-                      <h3 className="font-heading text-xl font-bold text-ink mb-3 leading-snug">
-                        {article.title}
-                      </h3>
-                      {article.excerpt && (
-                        <p className="text-ink-muted text-sm mb-4 line-clamp-2">
-                          {article.excerpt}
-                        </p>
-                      )}
-                      <Link
-                        href={`/blog/${article.slug}`}
-                        className="text-terracotta font-bold hover:underline flex items-center gap-1 focus-visible:outline-2 focus-visible:outline-terracotta rounded"
-                      >
-                        Celý článek{" "}
-                        <ChevronRight size={16} aria-hidden="true" />
-                      </Link>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
+        <Container className="pt-[72px] lg:pt-28">
+          <h2 className="mb-8 text-[31px] font-semibold tracking-[-.03em] text-plum md:text-[40px]">Mohlo by vás zajímat</h2>
+          <div className="grid gap-5 md:grid-cols-3">
+            {related.map((a, i) => {
+              const fb = IMG[FALLBACK[i % FALLBACK.length]];
+              return (
+                <PostCard
+                  key={a.slug}
+                  href={`/blog/${a.slug}`}
+                  title={a.title}
+                  image={a.coverImage ? { src: a.coverImage, alt: "" } : { src: fb.src, alt: "" }}
+                />
+              );
+            })}
           </div>
-        </section>
+        </Container>
       )}
+      <div className="h-[72px] lg:h-28" />
     </>
   );
 }

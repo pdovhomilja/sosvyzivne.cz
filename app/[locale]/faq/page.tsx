@@ -4,12 +4,13 @@ import { ChevronDown } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { Section } from "@/components/ui/container";
 import { getFaqs, type FaqItem } from "@/lib/cms/faq";
-import { SiteHeader } from "@/components/site/SiteHeader";
+import { PageHead } from "@/components/site/PageHead";
+import { Accent } from "@/components/site/Accent";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "Často kladené dotazy – SOS výživné",
+  title: "Poradna: časté otázky – SOS výživné",
   description: "Odpovědi na nejčastější dotazy k vymáhání výživného a exekuci.",
 };
 
@@ -40,51 +41,39 @@ export default async function FaqPage({
 
   return (
     <>
-    <SiteHeader />
+    <PageHead title={<>Poradna: <Accent>časté otázky</Accent></>} lead="Odpovědi na nejčastější otázky k vymáhání výživného, exekuci a naší bezplatné pomoci." />
     <Section>
-      {/* Page header */}
-      <div className="mb-12 text-center">
-        <h1 className="font-heading text-4xl font-bold text-ink md:text-5xl">
-          Často kladené dotazy
-        </h1>
-        <p className="mx-auto mt-4 max-w-xl text-lg text-ink-muted md:text-xl">
-          Najděte odpovědi na nejčastější otázky ohledně vymáhání výživného a
-          naší bezplatné pomoci.
-        </p>
-      </div>
-
       {faqs.length === 0 ? (
-        <p className="mt-6 text-ink-muted">
-          Zatím zde nejsou žádné dotazy. Přidejte je v administraci (typ obsahu
-          FAQ).
+        <p className="mt-6 text-wine-muted">
+          Odpovědi připravujeme. Zatím nám prosím zavolejte nebo napište.
         </p>
       ) : (
-        <div className="mx-auto max-w-2xl space-y-0">
+        <div className="mx-auto max-w-3xl rounded-3xl bg-white px-4 py-2 md:px-8">
           {faqs.map((f) => (
-            <details key={f.id} className="group border-b border-hairline">
+            <details key={f.id} className="group border-b border-[#E6D6C6]">
               <summary
                 className="flex cursor-pointer list-none items-center justify-between px-2 py-6 text-left
-                  transition-colors hover:text-terracotta
-                  focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-4
+                  transition-colors hover:text-rose
+                  focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-plum focus-visible:ring-offset-4
                   [&::-webkit-details-marker]:hidden"
               >
-                <span className="pr-4 text-xl font-semibold leading-tight text-ink group-open:text-terracotta">
+                <span className="pr-4 text-xl font-semibold leading-tight text-wine group-open:text-rose">
                   {f.question}
                 </span>
                 <ChevronDown
                   aria-hidden
-                  className="size-5 shrink-0 text-ink-muted transition-transform duration-300 group-open:rotate-180"
+                  className="size-5 shrink-0 text-wine-muted transition-transform duration-300 group-open:rotate-180"
                 />
               </summary>
 
               <div className="px-2 pb-6">
                 <div
-                  className="prose-cms text-lg leading-relaxed text-ink-muted"
+                  className="prose-cms text-lg leading-relaxed text-wine-muted"
                   dangerouslySetInnerHTML={{ __html: f.answer }}
                 />
                 <Link
                   href={`/faq/${f.slug}`}
-                  className="mt-3 inline-block text-sm text-primary hover:underline"
+                  className="mt-3 inline-block text-sm text-plum hover:underline"
                 >
                   Celý článek »
                 </Link>
