@@ -23,7 +23,7 @@ export function SocialIcons({
   const tone =
     variant === "header"
       ? "text-white hover:opacity-80"
-      : "text-primary hover:text-terracotta";
+      : "text-honey hover:text-white";
   const size = variant === "header" ? 16 : 20;
 
   return (
@@ -37,7 +37,7 @@ export function SocialIcons({
           aria-label={label}
           className={cn(
             tone,
-            "transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm",
+            "transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-honey rounded-sm",
           )}
         >
           <Icon size={size} aria-hidden />

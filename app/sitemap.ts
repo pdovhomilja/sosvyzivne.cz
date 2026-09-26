@@ -1,19 +1,17 @@
 import type { MetadataRoute } from "next";
 import { getAllPublishedPostSlugs } from "@/lib/cms/blog";
 import { getAllFaqSlugs } from "@/lib/cms/faq";
+import { ROUTES } from "@/lib/site/nav";
+import { REPORTS } from "@/lib/content/annual-reports";
 
 const baseUrl = (
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://sosvyzivne.cz"
 ).replace(/\/+$/, "");
 
+// Every public route except search, plus one page per annual report.
 const STATIC_PATHS = [
-  "",
-  "/chci-pomoc-s-vymahanim-vyzivneho",
-  "/kalkulacka",
-  "/faq",
-  "/blog",
-  "/kontakt",
-  "/zasady-ochrany-osobnich-udaju",
+  ...ROUTES.filter((r) => r !== "/hledat").map((r) => (r === "/" ? "" : r)),
+  ...REPORTS.map((r) => `/vyrocni-zpravy/${r.year}`),
 ];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {

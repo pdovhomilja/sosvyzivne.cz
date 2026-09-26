@@ -4,8 +4,11 @@ import { ORG } from "@/lib/org";
 import { Accent } from "./Accent";
 import { Button } from "./Button";
 import { Container } from "./Container";
+import { SocialIcons } from "@/components/SocialIcons";
+import { getSocialSettings } from "@/lib/social";
 
-export function SiteFooter() {
+export async function SiteFooter() {
+  const socials = await getSocialSettings();
   return (
     <footer className="bg-[linear-gradient(180deg,#6E2F40_0%,#3B1C29_40%)] text-[#E9DCD3] [&_ul_a]:text-[#E9DCD3]">
       <Container className="grid gap-10 py-16 text-[15px] md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
@@ -16,6 +19,7 @@ export function SiteFooter() {
           <Button href={`tel:${ORG.phone}`} variant="cream">
             {ORG.phoneDisplay}
           </Button>
+          <SocialIcons variant="footer" links={socials} />
         </div>
         <div>
           <b className="mb-3 block text-[#FFF6EC]">{ORG.legalName}</b>

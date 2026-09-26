@@ -1,3 +1,5 @@
+> Superseded on 2026-09-26 by docs/superpowers/specs/2026-09-26-redesign-b6-design.md.
+
 # 08 — Google Stitch Design Prompt
 
 A ready-to-paste prompt for **Google Stitch** (stitch.withgoogle.com) to generate a brand-new
