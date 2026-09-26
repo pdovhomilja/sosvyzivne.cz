@@ -7,7 +7,7 @@ import { Container } from "./Container";
 
 export function SiteFooter() {
   return (
-    <footer className="bg-plum text-[#E9DCD3] [&_a]:text-[#E9DCD3]">
+    <footer className="bg-[linear-gradient(180deg,#6E2F40_0%,#3B1C29_40%)] text-[#E9DCD3] [&_a]:text-[#E9DCD3]">
       <Container className="grid gap-10 py-16 text-[15px] md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
         <div className="flex flex-col items-start gap-5">
           <p className="text-3xl font-semibold leading-tight tracking-[-.02em] text-[#FFF6EC]">
