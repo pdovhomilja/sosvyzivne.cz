@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
 import { ORG } from "@/lib/org";
-import { OfficeMap } from "@/components/contact/OfficeMap";
+import { MapLinkCard } from "@/components/site/MapLinkCard";
 import { PageHead } from "@/components/site/PageHead";
 import { Container } from "@/components/site/Container";
 import { Accent } from "@/components/site/Accent";
@@ -82,8 +82,8 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
             </Button>
           </div>
         </section>
-        <div className="overflow-hidden rounded-3xl bg-white lg:col-span-2">
-          <OfficeMap query={ORG.office} label="Kancelář Kralovice" />
+        <div className="lg:col-span-2">
+          <MapLinkCard address={ORG.office} />
         </div>
       </Container>
       <div className="h-[72px] lg:h-28" />
