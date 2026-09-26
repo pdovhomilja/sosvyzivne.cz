@@ -3,6 +3,7 @@ import { setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { Calculator } from "./Calculator";
+import { SiteHeader } from "@/components/site/SiteHeader";
 
 export const metadata: Metadata = {
   title: "Kalkulačka výživného – SOS výživné",
@@ -19,6 +20,8 @@ export default async function CalculatorPage({
   setRequestLocale(locale);
 
   return (
+    <>
+    <SiteHeader />
     <main className="min-h-screen pb-24">
       {/* Hero / Intro */}
       <section className="max-w-[800px] mx-auto px-6 text-center mb-12 pt-12">
@@ -77,5 +80,6 @@ export default async function CalculatorPage({
         </Button>
       </section>
     </main>
+    </>
   );
 }

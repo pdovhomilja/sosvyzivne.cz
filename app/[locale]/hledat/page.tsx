@@ -4,6 +4,7 @@ import { Search } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { Section } from "@/components/ui/container";
 import { searchContent, type SearchResult } from "@/lib/cms/search";
+import { SiteHeader } from "@/components/site/SiteHeader";
 
 export const dynamic = "force-dynamic";
 
@@ -35,6 +36,8 @@ export default async function SearchPage({
   }
 
   return (
+    <>
+    <SiteHeader />
     <Section>
       <div className="mx-auto max-w-3xl">
         <h1 className="font-heading text-4xl sm:text-5xl text-ink leading-tight">
@@ -91,5 +94,6 @@ export default async function SearchPage({
         </div>
       </div>
     </Section>
+    </>
   );
 }

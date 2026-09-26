@@ -5,6 +5,7 @@ import { Link } from "@/i18n/navigation";
 import { Section } from "@/components/ui/container";
 import { RichText } from "@/components/cms/RichText";
 import { getFaqBySlug } from "@/lib/cms/faq";
+import { SiteHeader } from "@/components/site/SiteHeader";
 
 export const dynamic = "force-dynamic";
 
@@ -31,6 +32,8 @@ export default async function FaqAnswerPage({
   if (!faq) notFound();
 
   return (
+    <>
+    <SiteHeader />
     <Section>
       <article className="mx-auto max-w-2xl">
         <nav className="text-sm text-ink-muted">
@@ -43,5 +46,6 @@ export default async function FaqAnswerPage({
         <RichText html={faq.answer} className="mt-6" />
       </article>
     </Section>
+    </>
   );
 }

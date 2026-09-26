@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
 import { Section } from "@/components/ui/container";
 import { ORG } from "@/lib/org";
+import { SiteHeader } from "@/components/site/SiteHeader";
 
 export const metadata: Metadata = {
   title: "Zásady ochrany osobních údajů – SOS výživné",
@@ -18,6 +19,8 @@ export default async function PrivacyPage({
   setRequestLocale(locale);
 
   return (
+    <>
+    <SiteHeader />
     <Section>
       <div className="mx-auto max-w-3xl space-y-6 text-ink-muted leading-relaxed">
         <h1 className="font-heading text-4xl sm:text-5xl text-ink leading-tight">
@@ -68,5 +71,6 @@ export default async function PrivacyPage({
         </p>
       </div>
     </Section>
+    </>
   );
 }

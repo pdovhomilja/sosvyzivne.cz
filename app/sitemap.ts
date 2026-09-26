@@ -3,7 +3,7 @@ import { getAllPublishedPostSlugs } from "@/lib/cms/blog";
 import { getAllFaqSlugs } from "@/lib/cms/faq";
 
 const baseUrl = (
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.sosvyzivne.cz"
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://sosvyzivne.cz"
 ).replace(/\/+$/, "");
 
 const STATIC_PATHS = [

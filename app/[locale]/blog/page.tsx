@@ -5,6 +5,7 @@ import { Link } from "@/i18n/navigation";
 import { Section } from "@/components/ui/container";
 import { getPublishedPosts } from "@/lib/cms/blog";
 import { pageImages, imgSrc, altText } from "@/lib/stitch-images";
+import { SiteHeader } from "@/components/site/SiteHeader";
 
 export const dynamic = "force-dynamic";
 
@@ -43,6 +44,7 @@ export default async function BlogPage({
 
   return (
     <>
+      <SiteHeader />
       {/* Hero */}
       <section className="py-16 md:py-24 bg-surface-subtle">
         <div className="max-w-[800px] mx-auto px-6 text-center">

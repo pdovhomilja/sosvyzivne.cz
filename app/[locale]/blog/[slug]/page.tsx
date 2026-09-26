@@ -7,6 +7,7 @@ import { RichText } from "@/components/cms/RichText";
 import { getPostBySlug, getLatestPosts } from "@/lib/cms/blog";
 import { pageImages, imgSrc, altText } from "@/lib/stitch-images";
 import { Calendar, ChevronRight } from "lucide-react";
+import { SiteHeader } from "@/components/site/SiteHeader";
 
 export const dynamic = "force-dynamic";
 
@@ -62,6 +63,7 @@ export default async function BlogPostPage({
 
   return (
     <>
+      <SiteHeader />
       {/* Breadcrumb & Hero */}
       <section className="mx-auto w-full max-w-[1200px] px-4 sm:px-6 pt-12 pb-8">
         <nav

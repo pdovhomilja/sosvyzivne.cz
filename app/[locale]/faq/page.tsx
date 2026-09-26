@@ -4,6 +4,7 @@ import { ChevronDown } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { Section } from "@/components/ui/container";
 import { getFaqs, type FaqItem } from "@/lib/cms/faq";
+import { SiteHeader } from "@/components/site/SiteHeader";
 
 export const dynamic = "force-dynamic";
 
@@ -38,6 +39,8 @@ export default async function FaqPage({
   };
 
   return (
+    <>
+    <SiteHeader />
     <Section>
       {/* Page header */}
       <div className="mb-12 text-center">
@@ -96,5 +99,6 @@ export default async function FaqPage({
         </div>
       )}
     </Section>
+    </>
   );
 }

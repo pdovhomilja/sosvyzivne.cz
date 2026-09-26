@@ -9,6 +9,7 @@ import { Steps } from "@/components/home/Steps";
 import { BlogTeasers } from "@/components/home/BlogTeasers";
 import { MediaStrip } from "@/components/home/MediaStrip";
 import { Testimonials } from "@/components/home/Testimonials";
+import { SiteHeader } from "@/components/site/SiteHeader";
 
 // Revalidate hourly: the ad-landing page must be fast (PageSpeed mobile).
 // Latest blog teasers refresh on the next request after 1h. DB-failure
@@ -39,6 +40,7 @@ export default async function HomePage({
 
   return (
     <>
+      <SiteHeader />
       <PromoRibbon />
       <Hero />
       <AboutBlock />

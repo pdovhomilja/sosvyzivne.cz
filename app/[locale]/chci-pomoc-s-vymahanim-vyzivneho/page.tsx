@@ -6,6 +6,7 @@ import { Section } from "@/components/ui/container";
 import { ContactForm } from "./ContactForm";
 import { ORG } from "@/lib/org";
 import { pageImages, imgSrc, altText } from "@/lib/stitch-images";
+import { SiteHeader } from "@/components/site/SiteHeader";
 
 export const metadata: Metadata = {
   title: "Chci pomoc s vymáháním výživného – SOS výživné",
@@ -25,6 +26,8 @@ export default async function GetHelpPage({
   const heroImg = images[0];
 
   return (
+    <>
+    <SiteHeader />
     <Section>
       <div className="grid grid-cols-1 gap-12 items-start lg:grid-cols-12">
         {/* Left Column: Form */}
@@ -120,5 +123,6 @@ export default async function GetHelpPage({
         </aside>
       </div>
     </Section>
+    </>
   );
 }

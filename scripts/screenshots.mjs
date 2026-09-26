@@ -19,7 +19,8 @@ for (const p of paths) {
   for (const width of WIDTHS) {
     const page = await browser.newPage();
     await page.setViewport({ width, height: 900, deviceScaleFactor: 1, isMobile: width < 768 });
-    await page.goto(BASE + p, { waitUntil: "networkidle0" });
+    await page.goto(BASE + p, { waitUntil: "load", timeout: 60000 });
+    await new Promise((r) => setTimeout(r, 700));
     const overflow = await page.evaluate(() => {
       const w = document.documentElement.clientWidth;
       return [...document.querySelectorAll("body *")]

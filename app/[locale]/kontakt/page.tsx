@@ -8,6 +8,7 @@ import { OfficeMap } from "@/components/contact/OfficeMap";
 import { ORG } from "@/lib/org";
 import { pageImages, imgSrc, altText } from "@/lib/stitch-images";
 import { donationQrSvg } from "@/lib/payment-qr";
+import { SiteHeader } from "@/components/site/SiteHeader";
 
 export const metadata: Metadata = {
   title: "Podpořte naši činnost – SOS výživné",
@@ -30,6 +31,8 @@ export default async function ContactPage({
   const warmImg = homeImages[2] ?? homeImages[0];
 
   return (
+    <>
+    <SiteHeader />
     <Section>
       <div className="mx-auto max-w-3xl">
 
@@ -175,5 +178,6 @@ export default async function ContactPage({
 
       </div>
     </Section>
+    </>
   );
 }

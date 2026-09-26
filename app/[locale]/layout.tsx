@@ -6,9 +6,8 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import "../globals.css";
 import { routing } from "@/i18n/routing";
 import { socialMetadata } from "@/lib/seo/metadata";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
-import { CtaBand } from "@/components/layout/CtaBand";
+import { SiteFooter } from "@/components/site/SiteFooter";
+import { orgJsonLd } from "@/lib/seo/org-jsonld";
 import { Toaster } from "@/components/ui/sonner";
 import { CookieConsent } from "@/components/CookieConsent";
 import { PostHogAnalytics } from "@/components/PostHogAnalytics";
@@ -27,7 +26,7 @@ const instrument = Instrument_Serif({
 });
 
 const baseUrl = (
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.sosvyzivne.cz"
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://sosvyzivne.cz"
 ).replace(/\/+$/, "");
 
 export async function generateMetadata({
@@ -67,12 +66,14 @@ export default async function LocaleLayout({
       lang={locale}
       className={`${hanken.variable} ${instrument.variable} antialiased`}
     >
-      <body className="flex min-h-screen flex-col bg-surface text-ink">
+      <body className="flex min-h-screen flex-col bg-cream font-sans text-wine">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd()) }}
+        />
         <NextIntlClientProvider>
-          <Header />
           <main className="flex-1">{children}</main>
-          <CtaBand />
-          <Footer />
+          <SiteFooter />
           <CookieConsent />
         </NextIntlClientProvider>
         <Toaster richColors />
