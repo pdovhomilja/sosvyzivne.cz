@@ -42,3 +42,6 @@ next-env.d.ts
 
 # stitch design export artifacts
 .stitch-export/
+
+# visual check output (scripts/screenshots.mjs)
+/screenshots/

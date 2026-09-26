@@ -17,7 +17,10 @@
     "seed:admins": "tsx scripts/seed-admins.ts",
     "seed:content": "tsx scripts/seed-content.ts",
     "seed:media-stock": "tsx scripts/upload-stock-media.ts",
-    "import:legacy": "tsx scripts/import-legacy-content.ts"
+    "import:legacy": "tsx scripts/import-legacy-content.ts",
+    "test": "vitest run",
+    "check:links": "linkinator http://localhost:3000 --recurse --skip \"^(?!http://localhost:3000)\" --skip \"/dokumenty/\" --verbosity error",
+    "shots": "node scripts/screenshots.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.4.0",
@@ -68,10 +71,13 @@
     "dotenv": "^17.4.2",
     "eslint": "^9",
     "eslint-config-next": "16.2.9",
+    "linkinator": "^6.3.0",
     "prisma": "^7.8.0",
+    "puppeteer-core": "^24.43.1",
     "tailwindcss": "^4",
     "tsx": "^4.22.4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^3.2.7"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
