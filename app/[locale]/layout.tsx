@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Playfair_Display, Open_Sans } from "next/font/google";
+import { Hanken_Grotesk, Instrument_Serif } from "next/font/google";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import "../globals.css";
@@ -13,16 +13,17 @@ import { Toaster } from "@/components/ui/sonner";
 import { CookieConsent } from "@/components/CookieConsent";
 import { PostHogAnalytics } from "@/components/PostHogAnalytics";
 
-const playfair = Playfair_Display({
-  variable: "--font-playfair",
+const hanken = Hanken_Grotesk({
+  variable: "--font-hanken",
   subsets: ["latin", "latin-ext"],
-  weight: ["400", "600", "700"],
+  weight: ["400", "500", "600", "700"],
 });
 
-const openSans = Open_Sans({
-  variable: "--font-open-sans",
+const instrument = Instrument_Serif({
+  variable: "--font-instrument",
   subsets: ["latin", "latin-ext"],
-  weight: ["400", "600", "700"],
+  weight: "400",
+  style: ["italic", "normal"],
 });
 
 const baseUrl = (
@@ -64,7 +65,7 @@ export default async function LocaleLayout({
   return (
     <html
       lang={locale}
-      className={`${playfair.variable} ${openSans.variable} antialiased`}
+      className={`${hanken.variable} ${instrument.variable} antialiased`}
     >
       <body className="flex min-h-screen flex-col bg-surface text-ink">
         <NextIntlClientProvider>

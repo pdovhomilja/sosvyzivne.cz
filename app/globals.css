@@ -25,8 +25,22 @@
   --color-error: #c0392b;
 
   /* Fonts (wired via next/font in the locale layout) */
-  --font-heading: var(--font-playfair), Georgia, serif;
-  --font-body: var(--font-open-sans), system-ui, sans-serif;
+  --font-heading: var(--font-hanken), system-ui, sans-serif;
+  --font-body: var(--font-hanken), system-ui, sans-serif;
+
+  /* ── B6 Svítání (public site), see docs/superpowers/specs/2026-09-26-redesign-b6-design.md ── */
+  --color-plum: #3b1c29;
+  --color-plum-2: #5a2d3d;
+  --color-rose: #a8454d;
+  --color-rose-2: #b45658;
+  --color-honey: #f5d7a8;
+  --color-cream: #fbf3ea;
+  --color-sand: #f3e5d4;
+  --color-wine: #2a1720;
+  --color-wine-muted: #6a4b55;
+  --radius-3xl: 1.5rem;
+  --font-sans: var(--font-hanken), system-ui, sans-serif;
+  --font-accent: var(--font-instrument), Georgia, serif;
 
   /* Stitch alias names (same hexes as above) so ported markup resolves 1:1 */
   --color-peach: #f8c0ba;
@@ -39,7 +53,7 @@
   --radius-lg: 1rem;
   --radius-xl: 1.5rem;
 
-  --font-headline: var(--font-playfair), Georgia, serif;
+  --font-headline: var(--font-hanken), system-ui, sans-serif;
   /* `font-body` already maps via --font-body */
 
   /* Shape */
