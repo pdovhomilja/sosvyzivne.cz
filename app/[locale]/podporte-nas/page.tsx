@@ -8,7 +8,6 @@ import { PageHead } from "@/components/site/PageHead";
 import { Container } from "@/components/site/Container";
 import { Accent } from "@/components/site/Accent";
 import { Button } from "@/components/site/Button";
-import { Verify } from "@/components/site/Verify";
 
 export const metadata: Metadata = {
   title: "Podpořte nás – SOS výživné nadační fond",
@@ -28,14 +27,7 @@ export default async function DonatePage({ params }: { params: Promise<{ locale:
             Pomáháme zdarma díky <Accent>dárcům</Accent>
           </>
         }
-        lead={
-          <>
-            <p>
-              Každý dar jde na provoz poradny a zastupování rodin, které si pomoc nemohou dovolit.
-            </p>
-            <Verify label="ověřit účel darů" />
-          </>
-        }
+        lead="Naše práce má smysl díky lidem, kterým není lhostejný osud rodičů samoživitelů a jejich dětí. Pomoci může opravdu každý – sdílením našich aktivit, doporučením dál nebo finanční podporou."
       />
       <Container className="grid items-start gap-5 pt-10 lg:grid-cols-[1.2fr_.8fr] lg:pt-[72px]">
         <section className="rounded-3xl bg-white p-7 md:p-10">
@@ -55,7 +47,18 @@ export default async function DonatePage({ params }: { params: Promise<{ locale:
               dangerouslySetInnerHTML={{ __html: qr }}
             />
             <p className="max-w-[28ch] text-wine-muted">
-              Naskenujte v bankovní aplikaci. Částku zvolíte sami. Rádi vám vystavíme potvrzení o daru pro daňové účely.
+              Naskenujte QR kód bankovní aplikací. Variabilní symbol není povinný, do zprávy můžete uvést své jméno nebo účel daru.
+            </p>
+          </div>
+          <div className="mt-8 grid gap-4 text-wine">
+            <p>
+              Z darů financujeme nejen právní a psychologické poradenství, ale také obědy ve škole a školní pomůcky pro
+              děti z rodin, kde jeden z rodičů výživné neplatí. Každý příspěvek – jakkoli malý – přímo mění životy těchto
+              rodin.
+            </p>
+            <p>
+              Rádi vám vystavíme potvrzení o daru, které můžete uplatnit pro daňové účely. V případě firemní podpory
+              připravujeme darovací smlouvy podle individuální domluvy.
             </p>
           </div>
         </section>

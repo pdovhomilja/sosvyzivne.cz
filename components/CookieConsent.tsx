@@ -67,12 +67,12 @@ export function CookieConsent() {
       <div
         role="region"
         aria-label={t("banner.title")}
-        className="fixed inset-x-0 bottom-0 z-50 border-t border-hairline bg-surface px-5 py-6 shadow-[0_-8px_30px_rgba(42,35,32,0.08)] md:px-12"
+        className="fixed inset-x-0 bottom-0 z-50 border-t border-[#E6D6C6] bg-white px-5 py-6 shadow-[0_-8px_30px_rgba(42,35,32,0.08)] md:px-12"
       >
         <div className="mx-auto flex max-w-[var(--container-max)] flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
           <div className="max-w-3xl">
-            <p className="font-heading text-lg font-bold text-accent">{t("banner.title")}</p>
-            <p className="mt-1 text-sm leading-relaxed text-ink-muted">
+            <p className="font-sans text-lg font-bold text-rose">{t("banner.title")}</p>
+            <p className="mt-1 text-sm leading-relaxed text-wine-muted">
               {t("banner.description")}
             </p>
           </div>
@@ -80,6 +80,7 @@ export function CookieConsent() {
             <Button
               type="button"
               variant="ghost"
+              className="text-rose hover:bg-sand focus-visible:ring-plum"
               size="sm"
               onClick={openPreferences}
             >
@@ -88,6 +89,7 @@ export function CookieConsent() {
             <Button
               type="button"
               variant="outline"
+              className="border-plum/40 text-plum hover:bg-sand focus-visible:ring-plum"
               size="sm"
               onClick={() => commit({ analytics: false, marketing: false })}
             >
@@ -96,6 +98,7 @@ export function CookieConsent() {
             <Button
               type="button"
               variant="primary"
+              className="bg-plum text-[#FFF6EC] hover:bg-[#27111B] focus-visible:ring-plum"
               size="sm"
               onClick={() => commit({ analytics: true, marketing: true })}
             >
@@ -113,16 +116,16 @@ export function CookieConsent() {
       role="dialog"
       aria-modal="true"
       aria-label={t("preferences.title")}
-      className="fixed inset-0 z-50 flex items-end justify-center bg-ink/50 px-4 py-6 sm:items-center"
+      className="fixed inset-0 z-50 flex items-end justify-center bg-wine/50 px-4 py-6 sm:items-center"
       onClick={(e) => {
         if (e.target === e.currentTarget) setPreferencesOpen(false);
       }}
     >
-      <div className="max-h-full w-full max-w-2xl overflow-y-auto rounded-[var(--radius-lg)] border border-hairline bg-surface p-6 md:p-8">
-        <h2 className="font-heading text-2xl font-bold text-accent">
+      <div className="max-h-full w-full max-w-2xl overflow-y-auto rounded-[var(--radius-lg)] border border-[#E6D6C6] bg-white p-6 md:p-8">
+        <h2 className="font-sans text-2xl font-bold text-rose">
           {t("preferences.title")}
         </h2>
-        <p className="mt-2 text-sm leading-relaxed text-ink-muted">
+        <p className="mt-2 text-sm leading-relaxed text-wine-muted">
           {t("preferences.description")}
         </p>
 
@@ -152,6 +155,7 @@ export function CookieConsent() {
           <Button
             type="button"
             variant="ghost"
+              className="text-rose hover:bg-sand focus-visible:ring-plum"
             size="sm"
             onClick={() => setPreferencesOpen(false)}
           >
@@ -160,6 +164,7 @@ export function CookieConsent() {
           <Button
             type="button"
             variant="outline"
+              className="border-plum/40 text-plum hover:bg-sand focus-visible:ring-plum"
             size="sm"
             onClick={() => commit({ analytics, marketing })}
           >
@@ -168,6 +173,7 @@ export function CookieConsent() {
           <Button
             type="button"
             variant="primary"
+              className="bg-plum text-[#FFF6EC] hover:bg-[#27111B] focus-visible:ring-plum"
             size="sm"
             onClick={() => commit({ analytics: true, marketing: true })}
           >
@@ -195,24 +201,24 @@ function ConsentRow({
   onChange?: (value: boolean) => void;
 }) {
   return (
-    <label className="flex cursor-pointer items-start gap-4 rounded-[var(--radius-md)] border border-hairline bg-surface-subtle p-4">
+    <label className="flex cursor-pointer items-start gap-4 rounded-[var(--radius-md)] border border-[#E6D6C6] bg-cream p-4">
       <input
         type="checkbox"
         checked={checked}
         disabled={disabled}
         onChange={(e) => onChange?.(e.target.checked)}
-        className="mt-1 h-5 w-5 shrink-0 accent-primary disabled:opacity-60"
+        className="mt-1 h-5 w-5 shrink-0 accent-plum disabled:opacity-60"
       />
       <span className="flex-1">
         <span className="flex items-center justify-between gap-2">
-          <span className="text-sm font-bold text-ink">{label}</span>
+          <span className="text-sm font-bold text-wine">{label}</span>
           {badge ? (
-            <span className="text-xs font-semibold uppercase tracking-wide text-ink-muted">
+            <span className="text-xs font-semibold uppercase tracking-wide text-wine-muted">
               {badge}
             </span>
           ) : null}
         </span>
-        <span className="mt-1 block text-sm leading-relaxed text-ink-muted">{description}</span>
+        <span className="mt-1 block text-sm leading-relaxed text-wine-muted">{description}</span>
       </span>
     </label>
   );

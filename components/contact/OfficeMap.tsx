@@ -22,9 +22,9 @@ export function OfficeMap({ query, label }: { query: string; label: string }) {
     <button
       type="button"
       onClick={() => setLoaded(true)}
-      className="h-56 w-full flex flex-col items-center justify-center gap-3 text-ink-muted hover:text-terracotta transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+      className="h-56 w-full flex flex-col items-center justify-center gap-3 text-wine-muted hover:text-rose transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-plum"
     >
-      <MapPin size={32} className="text-terracotta" aria-hidden="true" />
+      <MapPin size={32} className="text-rose" aria-hidden="true" />
       <span className="text-sm font-medium">Zobrazit mapu — {label}</span>
       <span className="text-xs">Načtením mapy souhlasíte s cookies Google Maps</span>
     </button>

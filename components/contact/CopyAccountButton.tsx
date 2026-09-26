@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { Copy, Check } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { buttonClass } from "@/components/site/Button";
 
 export function CopyAccountButton({ account }: { account: string }) {
   const [copied, setCopied] = useState(false);
@@ -15,9 +15,9 @@ export function CopyAccountButton({ account }: { account: string }) {
     }
   }
   return (
-    <Button type="button" variant="outline" onClick={copy}>
+    <button type="button" onClick={copy} className={buttonClass("glass")}>
       {copied ? <Check size={16} aria-hidden /> : <Copy size={16} aria-hidden />}
       {copied ? "Zkopírováno" : "Kopírovat číslo účtu"}
-    </Button>
+    </button>
   );
 }

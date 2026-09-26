@@ -22,7 +22,7 @@ describe("site navigation", () => {
       expect(ROUTES as readonly string[], item.href).toContain(item.href);
     }
   });
-  it.skipIf(!process.env.CHECK_ROUTES)("every declared route has a page file", () => {
+  it("every declared route has a page file", () => {
     for (const r of ROUTES) expect(routeExists(r), r).toBe(true);
   });
 });

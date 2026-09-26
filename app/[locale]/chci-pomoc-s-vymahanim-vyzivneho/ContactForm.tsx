@@ -5,7 +5,7 @@ import { submitLead, type LeadState } from "./actions";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
+import { buttonClass } from "@/components/site/Button";
 
 const initial: LeadState = { ok: false };
 
@@ -22,7 +22,7 @@ function Field({
 }) {
   return (
     <div className="flex flex-col gap-2">
-      <Label htmlFor={name} className="font-bold text-sm text-ink px-1">
+      <Label htmlFor={name} className="font-bold text-sm text-plum px-1">
         {label}
       </Label>
       {error ? React.cloneElement(children, { "aria-describedby": `${name}-error`, "aria-invalid": true } as Record<string, unknown>) : children}
@@ -59,7 +59,7 @@ export function ContactForm() {
             autoComplete="name"
             required
             placeholder="Např. Jana Nováková"
-            className="px-4 py-3 border-hairline rounded-[var(--radius-md)] bg-surface-subtle transition-all"
+            className="px-4 py-3 border-[#E6D6C6] rounded-2xl bg-white text-wine transition-all"
           />
         </Field>
         <Field name="email" label="E-mail" error={state.errors?.email}>
@@ -70,7 +70,7 @@ export function ContactForm() {
             autoComplete="email"
             required
             placeholder="vas@email.cz"
-            className="px-4 py-3 border-hairline rounded-[var(--radius-md)] bg-surface-subtle transition-all"
+            className="px-4 py-3 border-[#E6D6C6] rounded-2xl bg-white text-wine transition-all"
           />
         </Field>
       </div>
@@ -85,7 +85,7 @@ export function ContactForm() {
             autoComplete="tel"
             required
             placeholder="+420 123 456 789"
-            className="px-4 py-3 border-hairline rounded-[var(--radius-md)] bg-surface-subtle transition-all"
+            className="px-4 py-3 border-[#E6D6C6] rounded-2xl bg-white text-wine transition-all"
           />
         </Field>
         <Field name="psc" label="PSČ" error={state.errors?.psc}>
@@ -95,7 +95,7 @@ export function ContactForm() {
             inputMode="numeric"
             required
             placeholder="120 00"
-            className="px-4 py-3 border-hairline rounded-[var(--radius-md)] bg-surface-subtle transition-all"
+            className="px-4 py-3 border-[#E6D6C6] rounded-2xl bg-white text-wine transition-all"
           />
         </Field>
       </div>
@@ -107,7 +107,7 @@ export function ContactForm() {
           name="zprava"
           rows={4}
           placeholder="Stručně popište vaši situaci..."
-          className="px-4 py-3 border-hairline rounded-[var(--radius-md)] bg-surface-subtle resize-none transition-all"
+          className="px-4 py-3 border-[#E6D6C6] rounded-2xl bg-white text-wine resize-none transition-all"
         />
       </Field>
 
@@ -127,11 +127,11 @@ export function ContactForm() {
           id="souhlas"
           name="souhlas"
           type="checkbox"
-          className="mt-1 w-5 h-5 rounded border-hairline text-primary focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+          className="mt-1 w-5 h-5 rounded border-[#E6D6C6] accent-[#3B1C29] focus-visible:ring-2 focus-visible:ring-plum focus-visible:ring-offset-2"
           required
           {...(state.errors?.souhlas ? { "aria-describedby": "souhlas-error", "aria-invalid": true } : {})}
         />
-        <Label htmlFor="souhlas" className="font-normal text-sm text-ink-muted leading-relaxed">
+        <Label htmlFor="souhlas" className="font-normal text-sm text-wine-muted leading-relaxed">
           Souhlasím se zpracováním osobních údajů za účelem vyřízení mé žádosti.
         </Label>
       </div>
@@ -139,9 +139,9 @@ export function ContactForm() {
         <p id="souhlas-error" role="alert" className="text-sm text-error">{state.errors.souhlas}</p>
       )}
 
-      <Button type="submit" size="lg" disabled={pending} className="w-full">
+      <button type="submit" disabled={pending} className={buttonClass("plum", "w-full disabled:opacity-60")}>
         {pending ? "Odesílám…" : "Chci pomoc"}
-      </Button>
+      </button>
     </form>
   );
 }
