@@ -11,12 +11,13 @@ export const IMG = {
   topicStudent: { src: "/images/site/topics/student-train.jpg", alt: "Student s batohem čeká na vlak", width: 1400, height: 933, credit: "Unsplash" },
   blogWalk: { src: "/images/site/blog/walk.jpg", alt: "Maminka vede malého syna za ruku", width: 933, height: 1400, credit: "Unsplash" },
   blogStreet: { src: "/images/site/blog/street.jpg", alt: "Maminka se synem na ulici", width: 1050, height: 1400, credit: "Unsplash" },
-  lenka: { src: "/images/site/team/lenka.jpg", alt: "PhDr. Lenka Ranšová, DiS., ředitelka SOS výživné", width: 400, height: 602, credit: "SOS výživné" },
-  teamErik: { src: "/images/site/team/erik.jpg", alt: "Erik Žákovec", width: 209, height: 337, credit: "SOS výživné" },
-  teamEva: { src: "/images/site/team/eva.jpg", alt: "Eva Koukolíková", width: 308, height: 410, credit: "SOS výživné" },
-  teamMacek: { src: "/images/site/team/macek.jpg", alt: "Mgr. Daniel Macek", width: 298, height: 371, credit: "SOS výživné" },
-  teamBorutova: { src: "/images/site/team/borutova.jpg", alt: "Mgr. Zuzana Bořutová", width: 298, height: 371, credit: "SOS výživné" },
-  teamLudek: { src: "/images/site/team/ludek.jpg", alt: "JUDr. PhDr. Luděk Žákovec, Ph.D.", width: 492, height: 700, credit: "SOS výživné" },
+  lenka: { src: "/images/site/team/lenka.jpg", alt: "PhDr. Lenka Ranšová, DiS., ředitelka SOS výživné", width: 600, height: 800, credit: "SOS výživné" },
+  teamEva: { src: "/images/site/team/eva.jpg", alt: "Eva Koukolíková", width: 600, height: 800, credit: "SOS výživné" },
+  teamMacek: { src: "/images/site/team/macek.jpg", alt: "Mgr. Daniel Macek", width: 800, height: 800, credit: "SOS výživné" },
+  teamBorutova: { src: "/images/site/team/borutova.jpg", alt: "Mgr. Zuzana Bořutová", width: 619, height: 800, credit: "SOS výživné" },
+  teamLudek: { src: "/images/site/team/ludek.jpg", alt: "JUDr. PhDr. Luděk Žákovec, Ph.D.", width: 666, height: 800, credit: "SOS výživné" },
+  mediaceLenka: { src: "/images/site/team/mediace-lenka.jpg", alt: "PhDr. Lenka Ranšová, DiS., akreditovaná mediátorka", width: 600, height: 800, credit: "SOS výživné" },
+  mediaceLudek: { src: "/images/site/team/mediace-ludek.jpg", alt: "JUDr. PhDr. Luděk Žákovec, Ph.D., akreditovaný mediátor", width: 638, height: 800, credit: "SOS výživné" },
 } satisfies Record<string, Img>;
 
 export type ImageKey = keyof typeof IMG;

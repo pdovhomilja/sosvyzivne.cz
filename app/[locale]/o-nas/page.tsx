@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
-import { ABOUT } from "@/lib/content/about";
+import { ABOUT, DOWNLOADS } from "@/lib/content/about";
 import { ORG } from "@/lib/org";
 import { IMG } from "@/lib/site/images";
 import { PageHead } from "@/components/site/PageHead";
@@ -107,6 +107,24 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
               ))}
             </ul>
           </div>
+        </section>
+
+        <section className="pt-[72px] lg:pt-28">
+          <SectionHead label="Materiály" title={<>Ke <Accent>stažení</Accent></>} />
+          <ul className="m-0 grid list-none gap-3 p-0 md:grid-cols-2 lg:grid-cols-3">
+            {DOWNLOADS.map((d) => (
+              <li key={d.href}>
+                <a
+                  href={d.href}
+                  download
+                  className="flex items-center justify-between gap-4 rounded-[18px] bg-white px-5 py-4 font-semibold text-plum hover:bg-sand"
+                >
+                  {d.label}
+                  <span className="text-[13px] font-bold uppercase tracking-wide text-rose">{d.note}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
         </section>
 
         <div className="mt-10 flex flex-wrap gap-3">

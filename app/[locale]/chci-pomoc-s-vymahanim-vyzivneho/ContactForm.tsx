@@ -31,7 +31,7 @@ function Field({
   );
 }
 
-export function ContactForm() {
+export function ContactForm({ topic }: { topic?: "mediace" } = {}) {
   const [state, formAction, pending] = useActionState(submitLead, initial);
 
   if (state.ok && state.message) {
@@ -111,6 +111,8 @@ export function ContactForm() {
         />
       </Field>
 
+      {topic && <input type="hidden" name="tema" value={topic} />}
+
       {/* Honeypot — hidden from users. */}
       <input
         type="text"
@@ -140,7 +142,7 @@ export function ContactForm() {
       )}
 
       <button type="submit" disabled={pending} className={buttonClass("plum", "w-full disabled:opacity-60")}>
-        {pending ? "Odesílám…" : "Chci pomoc"}
+        {pending ? "Odesílám…" : topic === "mediace" ? "Mám zájem o mediaci" : "Chci pomoc"}
       </button>
     </form>
   );

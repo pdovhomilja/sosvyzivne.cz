@@ -10,6 +10,7 @@ export const ORG = {
   seat: "Žihle 232, 331 65 Žihle",
   office: "Masarykovo nám. 1, 331 41 Kralovice",
   email: "info@sosvyzivne.cz",
+  mediationEmail: "lenka.ransova@sosvyzivne.cz",
   phone: "+420602842888",
   phoneDisplay: "+420 602 842 888",
   facebook: "https://www.facebook.com/SOSvyzivne",

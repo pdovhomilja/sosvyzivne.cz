@@ -24,6 +24,7 @@ export const ROUTES = [
 
 export const NAV: NavItem[] = [
   { href: "/jak-pomahame", label: "Jak pomáháme" },
+  { href: "/jak-pomahame/mediace", label: "Mediace" },
   { href: "/o-nas", label: "O nás" },
   { href: "/vyrocni-zpravy", label: "Výroční zprávy" },
   { href: "/faq", label: "Poradna" },

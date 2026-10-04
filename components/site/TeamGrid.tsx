@@ -4,7 +4,7 @@ import { PhotoFrame } from "./PhotoFrame";
 
 export function TeamGrid() {
   return (
-    <div className="grid grid-cols-2 gap-[18px] md:grid-cols-3 lg:grid-cols-6">
+    <div className="grid grid-cols-2 gap-[18px] md:grid-cols-3 lg:grid-cols-5">
       {TEAM.map((t, i) => {
         const img = IMG[t.image];
         return (

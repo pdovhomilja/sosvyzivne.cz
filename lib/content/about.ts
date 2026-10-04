@@ -11,3 +11,14 @@ export const ABOUT = {
     { name: "SOS rodině s.r.o.", note: "úhrada provozních nákladů" },
   ],
 };
+
+/** Files Lenka sent for download (e-mail 30. 9. 2026); the stories are published with the clients' consent. */
+export const DOWNLOADS = [
+  { href: "/dokumenty/letacek-pro-klienty.pdf", label: "Letáček pro klienty", note: "PDF" },
+  { href: "/dokumenty/predstaveni-fondu.pdf", label: "Představení nadačního fondu", note: "PDF" },
+  { href: "/dokumenty/pribeh-hana.pdf", label: "Příběh klientky: Hana", note: "PDF" },
+  { href: "/dokumenty/pribeh-jana.pdf", label: "Příběh klientky: Jana", note: "PDF" },
+  { href: "/dokumenty/pribeh-katerina.pdf", label: "Příběh klientky: Kateřina", note: "PDF" },
+  { href: "/logo/SOS_logo_landscape-RGB.png", label: "Logo SOS výživné (na šířku)", note: "PNG" },
+  { href: "/logo/SOS_logo_compact-RGB.png", label: "Logo SOS výživné (kompaktní)", note: "PNG" },
+] as const;
