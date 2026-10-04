@@ -43,7 +43,7 @@ export function Calculator() {
       <div>
         <Label
           htmlFor="income"
-          className="block text-sm font-semibold text-ink-muted mb-2"
+          className="block text-sm font-semibold text-wine-muted mb-2"
         >
           Čistý měsíční příjem rodiče (Kč)
         </Label>
@@ -55,27 +55,27 @@ export function Calculator() {
             placeholder="např. 25 000"
             value={income}
             onChange={(e) => setIncome(e.target.value.replace(/[^\d]/g, ""))}
-            className="w-full bg-surface-subtle border border-hairline rounded-lg py-4 px-6 text-lg text-ink placeholder:text-ink-muted/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:border-primary transition-all"
+            className="w-full bg-cream border border-[#E6D6C6] rounded-lg py-4 px-6 text-lg text-wine placeholder:text-wine-muted/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-plum focus-visible:border-plum transition-all"
           />
-          <span className="absolute right-6 top-1/2 -translate-y-1/2 text-ink-muted font-medium pointer-events-none">
+          <span className="absolute right-6 top-1/2 -translate-y-1/2 text-wine-muted font-medium pointer-events-none">
             Kč
           </span>
         </div>
       </div>
 
-      <div className="h-px bg-hairline w-full" />
+      <div className="h-px bg-[#E6D6C6] w-full" />
 
       {/* Child Rows */}
       <div className="space-y-6">
         {children.map((child, i) => (
           <div key={child.id}>
             <div className="flex justify-between items-end mb-3">
-              <h3 className="font-bold text-ink">Dítě {i + 1}</h3>
+              <h3 className="font-bold text-wine">Dítě {i + 1}</h3>
               {children.length > 1 && (
                 <button
                   type="button"
                   onClick={() => removeChild(child.id)}
-                  className="flex items-center gap-1 text-terracotta text-sm font-medium hover:underline transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded"
+                  className="flex items-center gap-1 text-rose text-sm font-medium hover:underline transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-plum rounded"
                   aria-label={`Odebrat dítě ${i + 1}`}
                 >
                   <X size={14} aria-hidden="true" />
@@ -86,7 +86,7 @@ export function Calculator() {
             <div>
               <Label
                 htmlFor={`age-${child.id}`}
-                className="block text-xs font-semibold text-ink-muted mb-1"
+                className="block text-xs font-semibold text-wine-muted mb-1"
               >
                 Věk dítěte
               </Label>
@@ -96,7 +96,7 @@ export function Calculator() {
                 onChange={(e) =>
                   setChildPct(child.id, parseFloat(e.target.value))
                 }
-                className="w-full bg-surface-subtle border border-hairline rounded-lg py-3 px-4 text-ink focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:border-primary transition-all"
+                className="w-full bg-cream border border-[#E6D6C6] rounded-lg py-3 px-4 text-wine focus:outline-none focus-visible:ring-2 focus-visible:ring-plum focus-visible:border-plum transition-all"
               >
                 {AGE_BRACKETS.map((b) => (
                   <option key={b.value} value={b.value}>
@@ -113,7 +113,7 @@ export function Calculator() {
       <button
         type="button"
         onClick={addChild}
-        className="w-full border-2 border-dashed border-peach text-terracotta font-bold py-4 rounded-xl hover:bg-peach-light hover:border-terracotta transition-all flex items-center justify-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+        className="w-full border-2 border-dashed border-honey text-rose font-bold py-4 rounded-xl hover:bg-sand hover:border-rose transition-all flex items-center justify-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-plum"
       >
         <Plus size={20} aria-hidden="true" />
         Přidat dítě
@@ -124,7 +124,7 @@ export function Calculator() {
         <button
           type="button"
           onClick={calculate}
-          className="w-full bg-primary text-white py-5 rounded-full font-bold text-lg hover:bg-primary-hover shadow-lg shadow-primary/20 transition-all active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+          className="w-full bg-plum text-white py-5 rounded-full font-bold text-lg hover:bg-[#27111B] shadow-lg shadow-primary/20 transition-all active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-plum focus-visible:ring-offset-2"
         >
           Spočítat výživné
         </button>
@@ -139,17 +139,17 @@ export function Calculator() {
 
       {/* Result Card */}
       {result && (
-        <div className="bg-peach-light border-2 border-peach rounded-2xl p-8 text-center">
-          <p className="text-ink-muted text-sm font-semibold uppercase tracking-wider mb-2">
+        <div className="bg-sand border-2 border-honey rounded-2xl p-8 text-center">
+          <p className="text-wine-muted text-sm font-semibold uppercase tracking-wider mb-2">
             Doporučená výše
           </p>
-          <p className="text-3xl md:text-4xl font-heading text-ink font-bold mb-2">
+          <p className="text-3xl md:text-4xl font-sans text-wine font-bold mb-2">
             Celkové doporučené výživné:{" "}
-            <span className="text-primary">
+            <span className="text-plum">
               {result.total.toLocaleString("cs-CZ")} Kč
             </span>
           </p>
-          <p className="text-ink-muted text-sm italic">
+          <p className="text-wine-muted text-sm italic">
             Skutečnou výši výživného určuje soud.
           </p>
         </div>

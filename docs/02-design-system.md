@@ -1,3 +1,5 @@
+> Superseded on 2026-09-26 by docs/superpowers/specs/2026-09-26-redesign-b6-design.md.
+
 # 02 — Design System
 
 Design tokens extracted from the live site (Firecrawl `branding` analysis + visual inspection of the

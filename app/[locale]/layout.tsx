@@ -1,32 +1,33 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Playfair_Display, Open_Sans } from "next/font/google";
+import { Hanken_Grotesk, Instrument_Serif } from "next/font/google";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import "../globals.css";
 import { routing } from "@/i18n/routing";
 import { socialMetadata } from "@/lib/seo/metadata";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
-import { CtaBand } from "@/components/layout/CtaBand";
+import { SiteFooter } from "@/components/site/SiteFooter";
+import { orgJsonLd } from "@/lib/seo/org-jsonld";
 import { Toaster } from "@/components/ui/sonner";
 import { CookieConsent } from "@/components/CookieConsent";
 import { PostHogAnalytics } from "@/components/PostHogAnalytics";
 
-const playfair = Playfair_Display({
-  variable: "--font-playfair",
+const hanken = Hanken_Grotesk({
+  variable: "--font-hanken",
   subsets: ["latin", "latin-ext"],
-  weight: ["400", "600", "700"],
+  weight: ["400", "500", "600", "700"],
 });
 
-const openSans = Open_Sans({
-  variable: "--font-open-sans",
+const instrument = Instrument_Serif({
+  variable: "--font-instrument",
   subsets: ["latin", "latin-ext"],
-  weight: ["400", "600", "700"],
+  weight: "400",
+  style: ["italic", "normal"],
+  preload: false,
 });
 
 const baseUrl = (
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.sosvyzivne.cz"
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://sosvyzivne.cz"
 ).replace(/\/+$/, "");
 
 export async function generateMetadata({
@@ -64,14 +65,16 @@ export default async function LocaleLayout({
   return (
     <html
       lang={locale}
-      className={`${playfair.variable} ${openSans.variable} antialiased`}
+      className={`${hanken.variable} ${instrument.variable} antialiased`}
     >
-      <body className="flex min-h-screen flex-col bg-surface text-ink">
+      <body className="flex min-h-screen flex-col bg-cream font-sans text-wine">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd()) }}
+        />
         <NextIntlClientProvider>
-          <Header />
           <main className="flex-1">{children}</main>
-          <CtaBand />
-          <Footer />
+          <SiteFooter />
           <CookieConsent />
         </NextIntlClientProvider>
         <Toaster richColors />

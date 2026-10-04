@@ -1,5 +1,40 @@
 # Google Ad Grants — Website Policy Checklist & App Compliance Review
 
+## Re-audit 2026-09-26 — redesign B6 "Svítání" (branch `feat/redesign-b6`)
+
+Context: application rejected 9 Jul 2026 with the generic "website policy" reason. Spec: `docs/superpowers/specs/2026-09-26-redesign-b6-design.md`.
+
+| # | Area | Status | Evidence |
+|---|------|--------|----------|
+| 1 | Domain ownership / redirect | ⚠️ manual | Canonical is now the apex `https://sosvyzivne.cz` (layout, sitemap, robots, JSON-LD). **Still to do in hosting:** change `www.sosvyzivne.cz` → apex from 302 to permanent (301/308), and submit `https://sosvyzivne.cz/` in the Ad Grants request. |
+| 2 | Substantial & unique content | ✅ | New pages: O nás, Jak pomáháme + 5 service pages, Výroční zprávy 2023–2025 as HTML (PDF only as download), Podpořte nás, Průvodce. 21 public routes. |
+| 3 | Clear mission & activities | ✅ | Hero + nonprofit strip (nadační fond, IČO 17850983, od 2019, hours) above the fold; mission from the foundation deed on /o-nas; NGO JSON-LD with taxID; legal block in every footer. |
+| 4 | Navigation, no broken links / dead UI | ✅ | `pnpm check:links`: 0 broken of 307 links (fixed missing `/og.jpeg`). No disabled or placeholder controls; mobile menu works without JavaScript (`pnpm shots` no-JS check on all routes). |
+| 5 | Speed | ✅ local / ⏳ preview | Lighthouse (local, mobile simulation): `/` 90–95, service page 94, report 98; accessibility, best practices, SEO 100. All marketing pages prerendered (SSG/ISR); only `/blog` (pagination) and `/hledat` dynamic. **Re-run PageSpeed Insights on the preview deployment.** |
+| 6 | Mobile | ✅ | `pnpm shots`: no horizontal overflow on any route at 320, 390, 768, 1440 px. |
+| 7 | HTTPS | ✅ (unchanged) | Hosting enforces HTTPS; no http:// assets in the new pages. |
+| 8 | Donations / commercial | ✅ | /podporte-nas: transparent account 131-1390040247/0100, working SPD QR (payload `SPD*1.0*ACC:CZ0401000001311390040247*CC:CZK*…`, IBAN checksum valid). No ads, no affiliate links. |
+| — | DB outage | ✅ | With an unreachable `DATABASE_URL`: `/`, `/faq`, `/o-nas`, `/blog`, `/sitemap.xml` all 200; CMS sections hide. |
+
+### Before resubmitting
+
+1. Lenka confirms the claims below on a review deployment built with `pnpm build:review` (sets `ALLOW_UNVERIFIED=1`). A normal production build (`pnpm build`, which the live server uses) **fails** while any remain; this is intentional. Never set `ALLOW_UNVERIFIED` on the live server.
+   - /jak-pomahame/vymahani-vyzivneho: i zpětně (promlčení); kdo nese náklady exekuce; platby jdou přímo klientovi; zahraničí
+   - /jak-pomahame/nahradni-vyzivne: rozsah pomoci SOS výživné s náhradním výživným; podmínky nároku
+   - /jak-pomahame/zvyseni-vyzivneho: SOS výživné připravuje návrhy na zvýšení
+   - /jak-pomahame/zletili-studenti: postup, když výživné dosud stanovené není
+   - /jak-pomahame/mediace: cena mediace; dohodu lze předložit soudu
+   (Hint: Výroční zpráva 2023 says the service is free "včetně právního zastoupení i exekučního řízení, ať již vymáhání dopadne jakkoliv".)
+   To confirm a claim, remove it from `verify` in `lib/content/services.ts` (or reword the copy).
+2. Originals of the team portraits from Lenka (current ones come from the annual report PDF, 209–492 px wide).
+3. www → apex permanent redirect in hosting.
+4. PageSpeed Insights on the preview (target ≥ 90 mobile).
+5. Resubmit the activation request in the Google for Nonprofits account.
+
+---
+
+## Original review (2026-06-17)
+
 **Source:** [Google for Nonprofits — Website policy](https://support.google.com/nonprofits/answer/1657899)
 **Reviewed app:** `sosvyzivne.cz` (Next.js 16, `feat/gdpr-consent-posthog`)
 **Date:** 2026-06-17

@@ -12,6 +12,7 @@ const leadSchema = z.object({
   souhlas: z.literal(true, { message: "Je nutný souhlas se zpracováním údajů." }),
   // Honeypot — must stay empty.
   website: z.string().max(0).optional().default(""),
+  tema: z.enum(["mediace"]).optional(),
 });
 
 export type LeadState = {
@@ -32,6 +33,7 @@ export async function submitLead(
     zprava: formData.get("zprava") ?? "",
     souhlas: formData.get("souhlas") === "on",
     website: formData.get("website") ?? "",
+    tema: formData.get("tema") ?? undefined,
   });
 
   if (!parsed.success) {
@@ -44,15 +46,16 @@ export async function submitLead(
 
   if (parsed.data.website) return { ok: true }; // bot caught by honeypot
 
-  const { jmeno, email, telefon, psc, zprava } = parsed.data;
-  const to = process.env.RESEND_TO_EMAIL ?? ORG.email;
+  const { jmeno, email, telefon, psc, zprava, tema } = parsed.data;
+  // Mediation requests go straight to the mediator (Lenka, e-mail 30. 9. 2026).
+  const to = tema === "mediace" ? ORG.mediationEmail : (process.env.RESEND_TO_EMAIL ?? ORG.email);
 
   try {
     await getResend().emails.send({
       from: EMAIL_FROM,
       to,
       replyTo: email,
-      subject: `Nová žádost o pomoc – ${jmeno}`,
+      subject: tema === "mediace" ? `Zájem o mediaci – ${jmeno}` : `Nová žádost o pomoc – ${jmeno}`,
       text: `Jméno: ${jmeno}\nE-mail: ${email}\nTelefon: ${telefon}\nPSČ: ${psc}\n\nZpráva:\n${zprava}`,
     });
   } catch (err) {

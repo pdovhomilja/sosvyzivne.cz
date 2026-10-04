@@ -8,28 +8,11 @@ import {
   contentInputDiscriminated as contentInput,
   type ContentInput,
 } from "@/lib/cms/schemas";
-
-/** Public URL for a content row, used to revalidate after publish. */
-function publicPathFor(type: ContentInput["type"], slug: string): string | null {
-  switch (type) {
-    case "BLOG_POST":
-      return `/blog/${slug}`;
-    case "FAQ":
-      return `/faq/${slug}`;
-    default:
-      return null;
-  }
-}
+import { publicPathsToRevalidate } from "@/lib/cms/revalidate-paths";
+import { routing } from "@/i18n/routing";
 
 function revalidatePublic(type: ContentInput["type"], slug: string) {
-  const p = publicPathFor(type, slug);
-  if (p) revalidatePath(p);
-  if (type === "BLOG_POST") {
-    revalidatePath("/blog");
-    revalidatePath("/"); // home "Novinky z blogu" teasers
-  }
-  if (type === "FAQ") revalidatePath("/faq");
-  if (type === "ENDORSEMENT") revalidatePath("/"); // home "Spokojení klienti"
+  for (const p of publicPathsToRevalidate(type, slug, routing.locales)) revalidatePath(p);
 }
 
 function toJsonField(

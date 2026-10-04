@@ -4,6 +4,8 @@ import { Search } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { Section } from "@/components/ui/container";
 import { searchContent, type SearchResult } from "@/lib/cms/search";
+import { PageHead } from "@/components/site/PageHead";
+import { Accent } from "@/components/site/Accent";
 
 export const dynamic = "force-dynamic";
 
@@ -35,11 +37,10 @@ export default async function SearchPage({
   }
 
   return (
+    <>
+    <PageHead title={<>Hledat na <Accent>webu</Accent></>} />
     <Section>
       <div className="mx-auto max-w-3xl">
-        <h1 className="font-heading text-4xl sm:text-5xl text-ink leading-tight">
-          Hledání
-        </h1>
 
         <form action="/hledat" method="get" className="mt-6 flex gap-3">
           <input
@@ -48,11 +49,11 @@ export default async function SearchPage({
             defaultValue={query}
             placeholder="Zadejte hledaný výraz…"
             aria-label="Hledaný výraz"
-            className="flex-1 rounded-md border border-hairline bg-white px-4 h-11 text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+            className="min-w-0 flex-1 rounded-full border border-[#E6D6C6] bg-white px-5 h-12 text-wine focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-plum"
           />
           <button
             type="submit"
-            className="inline-flex items-center gap-2 rounded-md bg-primary text-white px-5 h-11 font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+            className="inline-flex shrink-0 items-center gap-2 rounded-full bg-plum text-white px-5 h-12 font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-plum focus-visible:ring-offset-2"
           >
             <Search size={18} aria-hidden />
             Hledat
@@ -61,27 +62,27 @@ export default async function SearchPage({
 
         <div className="mt-10 space-y-6">
           {query.length < 2 ? (
-            <p className="text-ink-muted">Zadejte alespoň dva znaky.</p>
+            <p className="text-wine-muted">Zadejte alespoň dva znaky.</p>
           ) : results.length === 0 ? (
-            <p className="text-ink-muted">
+            <p className="text-wine-muted">
               Pro výraz „{query}“ jsme nic nenašli. Zkuste jiný výraz.
             </p>
           ) : (
             results.map((r) => (
-              <article key={r.id} className="border-b border-hairline pb-6">
-                <span className="text-xs font-semibold uppercase text-terracotta">
+              <article key={r.id} className="border-b border-[#E6D6C6] pb-6">
+                <span className="text-xs font-semibold uppercase text-rose">
                   {r.type === "FAQ" ? "Dotaz" : "Článek"}
                 </span>
-                <h2 className="font-heading text-xl text-ink mt-1">
+                <h2 className="font-sans text-xl text-wine mt-1">
                   <Link
                     href={r.href}
-                    className="hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded"
+                    className="hover:text-plum transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-plum rounded"
                   >
                     {r.title}
                   </Link>
                 </h2>
                 {r.excerpt && (
-                  <p className="text-sm text-ink-muted leading-relaxed line-clamp-2 mt-2">
+                  <p className="text-sm text-wine-muted leading-relaxed line-clamp-2 mt-2">
                     {r.excerpt}
                   </p>
                 )}
@@ -91,5 +92,6 @@ export default async function SearchPage({
         </div>
       </div>
     </Section>
+    </>
   );
 }
