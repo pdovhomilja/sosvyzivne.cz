@@ -134,7 +134,7 @@ export const SERVICES: Service[] = [
     need: ["Rozsudek o výživném, pokud existuje.", "Potvrzení o studiu.", "Přehled plateb."],
     flow: [
       { title: "Konzultace", text: "Probereme vaši situaci, jednáte sami za sebe." },
-      { title: "Vymáhání nebo návrh", text: "Podle situace vymáháme dlužné výživné, nebo vám poradíme s návrhem k soudu." },
+      { title: "Vymáhání nebo návrh", text: "Podle situace vymáháme dlužné výživné, nebo vám poradíme s návrhem k soudu. Návrh za vás nepřipravujeme, podáváte ho sami." },
       { title: "Zastoupení", text: "Na základě plné moci jednáme za vás." },
     ],
     price: { title: "Kolik to stojí? Pro vás nic.", text: "Naši pomoc hradí dárci a partneři fondu." },

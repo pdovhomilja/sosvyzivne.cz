@@ -32,7 +32,7 @@ export const MEDIATION = {
     { title: "Úvod", text: "Mediátor oběma vysvětlí, jak mediace probíhá, jaká je jeho role a jaká pravidla platí při společném jednání." },
     { title: "Každý má prostor", text: "Každý z rodičů popíše svou situaci, své potřeby a to, co je pro něj důležité." },
     { title: "Hledání řešení", text: "Mediátor pomáhá otevírat jednotlivá témata a hledat možnosti, na kterých se můžete shodnout. Nejde o to, kdo má pravdu." },
-    { title: "Mediační dohoda", text: "Když se dohodnete, vaše dohoda se písemně zachytí v mediační dohodě." },
+    { title: "Mediační dohoda", text: "Když se dohodnete, vaše dohoda se písemně zachytí v mediační dohodě. Tu pak můžete předložit soudu ke schválení." },
   ],
   mediatorRole:
     "Mediátor je nestranný a nezávislý odborník, který řídí proces mediace. Není advokátem ani zástupcem jednoho z rodičů a nestojí na straně matky ani otce. Vytváří bezpečný prostor pro komunikaci, pomáhá pojmenovat potřeby a oddělit partnerský konflikt od společné rodičovské role. Partnerství může skončit. Rodičovství nikoli.",
