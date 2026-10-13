@@ -5,7 +5,15 @@ import type { PostHog } from "posthog-js";
 import { useConsent } from "@/lib/consent";
 
 const POSTHOG_KEY = process.env.NEXT_PUBLIC_POSTHOG_KEY;
-const POSTHOG_HOST = process.env.NEXT_PUBLIC_POSTHOG_HOST ?? "https://eu.i.posthog.com";
+const POSTHOG_HOST = process.env.NEXT_PUBLIC_POSTHOG_HOST ?? "/ingest";
+
+/** Captures a custom event. No-op unless PostHog has been initialized (analytics consent). */
+export function captureEvent(event: string, properties?: Record<string, unknown>) {
+  if (!POSTHOG_KEY) return;
+  void import("posthog-js").then(({ default: posthog }) => {
+    if (posthog.__loaded) posthog.capture(event, properties);
+  });
+}
 
 /**
  * Consent-gated PostHog loader. posthog-js is dynamically imported (its own
@@ -34,6 +42,7 @@ export function PostHogAnalytics() {
           if (cancelled) return;
           posthog.init(POSTHOG_KEY, {
             api_host: POSTHOG_HOST,
+            ui_host: "https://eu.posthog.com",
             defaults: "2025-05-24",
             person_profiles: "identified_only",
           });
@@ -48,6 +57,18 @@ export function PostHogAnalytics() {
     return () => {
       cancelled = true;
     };
+  }, [analyticsAllowed]);
+
+  // Phone link clicks (header, footer, contact page, service pages).
+  useEffect(() => {
+    if (!POSTHOG_KEY || !analyticsAllowed) return;
+    const onClick = (e: MouseEvent) => {
+      if ((e.target as Element | null)?.closest?.('a[href^="tel:"]')) {
+        captureEvent("phone_clicked", { path: window.location.pathname });
+      }
+    };
+    document.addEventListener("click", onClick);
+    return () => document.removeEventListener("click", onClick);
   }, [analyticsAllowed]);
 
   return null;
