@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { buttonClass } from "@/components/site/Button";
 import { trackLeadConversion } from "@/components/GoogleAdsTag";
+import { captureEvent } from "@/components/PostHogAnalytics";
 
 const initial: LeadState = { ok: false };
 
@@ -36,8 +37,10 @@ export function ContactForm({ topic }: { topic?: "mediace" } = {}) {
   const [state, formAction, pending] = useActionState(submitLead, initial);
 
   React.useEffect(() => {
-    if (state.ok) trackLeadConversion();
-  }, [state.ok]);
+    if (!state.ok) return;
+    trackLeadConversion();
+    captureEvent("lead_submitted", { topic: topic ?? "pomoc" });
+  }, [state.ok, topic]);
 
   if (state.ok && state.message) {
     return (
