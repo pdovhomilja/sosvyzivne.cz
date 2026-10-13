@@ -5,7 +5,7 @@ import type { PostHog } from "posthog-js";
 import { useConsent } from "@/lib/consent";
 
 const POSTHOG_KEY = process.env.NEXT_PUBLIC_POSTHOG_KEY;
-const POSTHOG_HOST = process.env.NEXT_PUBLIC_POSTHOG_HOST ?? "https://eu.i.posthog.com";
+const POSTHOG_HOST = process.env.NEXT_PUBLIC_POSTHOG_HOST ?? "/ingest";
 
 /** Captures a custom event. No-op unless PostHog has been initialized (analytics consent). */
 export function captureEvent(event: string, properties?: Record<string, unknown>) {
@@ -42,6 +42,7 @@ export function PostHogAnalytics() {
           if (cancelled) return;
           posthog.init(POSTHOG_KEY, {
             api_host: POSTHOG_HOST,
+            ui_host: "https://eu.posthog.com",
             defaults: "2025-05-24",
             person_profiles: "identified_only",
           });

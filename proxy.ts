@@ -6,6 +6,6 @@ import { routing } from "./i18n/routing";
 export default createMiddleware(routing);
 
 export const config = {
-  // Run on everything except API, Next internals, and files with extensions.
-  matcher: "/((?!api|_next|_vercel|.*\\..*).*)",
+  // Run on everything except API, Next internals, the PostHog proxy, and files with extensions.
+  matcher: "/((?!api|_next|_vercel|ingest|.*\\..*).*)",
 };
