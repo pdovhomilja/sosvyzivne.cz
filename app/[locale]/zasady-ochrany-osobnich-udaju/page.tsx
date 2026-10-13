@@ -46,7 +46,7 @@ export default async function PrivacyPage({
         <h2 className="text-2xl font-semibold text-plum pt-4">Cookies</h2>
         <p>
           Náš web používá nezbytné cookies nutné pro jeho fungování. S vaším
-          souhlasem používáme také analytické cookies. Své předvolby můžete
+          souhlasem používáme také analytické a marketingové cookies. Své předvolby můžete
           kdykoli změnit přes odkaz „Nastavení cookies“ v patičce webu.
         </p>
 
@@ -55,6 +55,16 @@ export default async function PrivacyPage({
           Pro zlepšování webu používáme nástroj PostHog. Analytické sledování se
           aktivuje až poté, co v liště cookies povolíte kategorii „Analytika“.
           Bez vašeho souhlasu se žádné analytické údaje neshromažďují.
+        </p>
+
+        <h2 className="text-2xl font-semibold text-plum pt-4">Reklama (Google Ads)</h2>
+        <p>
+          Pro měření účinnosti našich reklam ve vyhledávání Google používáme
+          značku Google Ads. Načte se až poté, co v liště cookies povolíte
+          kategorii „Marketingové“. Zaznamenává pouze, zda návštěvník
+          přicházející z reklamy odeslal formulář nebo klikl na telefonní číslo.
+          Obsah formuláře ani vaše kontaktní údaje společnosti Google
+          nepředáváme.
         </p>
 
         <h2 className="text-2xl font-semibold text-plum pt-4">Vaše práva</h2>

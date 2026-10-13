@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { buttonClass } from "@/components/site/Button";
+import { trackLeadConversion } from "@/components/GoogleAdsTag";
 
 const initial: LeadState = { ok: false };
 
@@ -33,6 +34,10 @@ function Field({
 
 export function ContactForm({ topic }: { topic?: "mediace" } = {}) {
   const [state, formAction, pending] = useActionState(submitLead, initial);
+
+  React.useEffect(() => {
+    if (state.ok) trackLeadConversion();
+  }, [state.ok]);
 
   if (state.ok && state.message) {
     return (

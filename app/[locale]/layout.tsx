@@ -11,6 +11,7 @@ import { orgJsonLd } from "@/lib/seo/org-jsonld";
 import { Toaster } from "@/components/ui/sonner";
 import { CookieConsent } from "@/components/CookieConsent";
 import { PostHogAnalytics } from "@/components/PostHogAnalytics";
+import { GoogleAdsTag } from "@/components/GoogleAdsTag";
 
 const hanken = Hanken_Grotesk({
   variable: "--font-hanken",
@@ -79,6 +80,7 @@ export default async function LocaleLayout({
         </NextIntlClientProvider>
         <Toaster richColors />
         <PostHogAnalytics />
+        <GoogleAdsTag />
       </body>
     </html>
   );
