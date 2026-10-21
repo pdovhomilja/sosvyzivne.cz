@@ -25,7 +25,7 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
             Jsme tu <Accent>pro vás</Accent>
           </>
         }
-        lead="Zavolejte, napište, nebo se zastavte v kanceláři v Kralovicích. Konzultace je zdarma."
+        lead="Zavolejte, napište, nebo si domluvte schůzku v kanceláři v Kralovicích. Konzultace je zdarma."
       />
       <Container className="grid items-start gap-5 pt-10 lg:grid-cols-2 lg:pt-[72px]">
         <section className="rounded-3xl bg-white p-7 md:p-10">
@@ -35,6 +35,9 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
               <a href={`tel:${ORG.phone}`} className="text-3xl font-semibold text-plum tabular-nums hover:underline">
                 {ORG.phoneDisplay}
               </a>
+              <p className="tabular-nums">
+                {ORG.phoneHours.day} {ORG.phoneHours.time}
+              </p>
               <p className="text-sm text-wine-muted">Volání i poradenství jsou zdarma.</p>
             </div>
             <div>
@@ -43,7 +46,10 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
               </a>
               <p className="text-sm text-wine-muted">Odpovídáme zpravidla do 24 hodin.</p>
             </div>
-            <dl className="grid grid-cols-[auto_1fr] gap-x-5 gap-y-1">
+            <p className="font-semibold text-plum">
+              Osobní návštěva po předchozí domluvě, kancelář Kralovice:
+            </p>
+            <dl className="-mt-4 grid grid-cols-[auto_1fr] gap-x-5 gap-y-1">
               {ORG.hours.map((h) => (
                 <div key={h.day} className="contents">
                   <dt className="font-semibold text-plum">{h.day}</dt>
