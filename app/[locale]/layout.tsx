@@ -45,6 +45,7 @@ export async function generateMetadata({
     title,
     description,
     ...socialMetadata({ title, description, locale, type: "website" }),
+    verification: { google: process.env.GOOGLE_SITE_VERIFICATION },
   };
 }
 
