@@ -60,9 +60,14 @@ export default async function PrivacyPage({
         <h2 className="text-2xl font-semibold text-plum pt-4">Reklama (Google Ads)</h2>
         <p>
           Pro měření účinnosti našich reklam ve vyhledávání Google používáme
-          značku Google Ads. Načte se až poté, co v liště cookies povolíte
-          kategorii „Marketingové“. Zaznamenává pouze, zda návštěvník
-          přicházející z reklamy odeslal formulář nebo klikl na telefonní číslo.
+          značku Google Ads v režimu souhlasu (Consent Mode). Načítá se všem
+          návštěvníkům. Dokud v liště cookies nepovolíte kategorii
+          „Marketingové“, neukládá žádné cookies a posílá společnosti Google
+          jen signály bez cookies a bez identifikátorů, které slouží
+          k souhrnnému měření konverzí. Pokud kategorii „Marketingové“ povolíte, používá k měření
+          konverzí cookies. Zaznamenává pouze, zda návštěvník přicházející
+          z reklamy odeslal formulář, klikl na telefonní číslo nebo si
+          v kalkulačce spočítal výživné.
           Obsah formuláře ani vaše kontaktní údaje společnosti Google
           nepředáváme.
         </p>

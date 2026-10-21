@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Plus, X } from "lucide-react";
 import { AGE_BRACKETS, estimateSupport } from "@/lib/calculator";
 import { Label } from "@/components/ui/label";
+import { trackCalculatorConversion } from "@/components/GoogleAdsTag";
 
 type Child = { id: number; pct: number };
 
@@ -35,6 +36,7 @@ export function Calculator() {
     }
     setError(null);
     setResult({ total: r.total });
+    trackCalculatorConversion();
   }
 
   return (
