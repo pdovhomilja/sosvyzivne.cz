@@ -308,8 +308,8 @@ RESEND_API_KEY= ; RESEND_FROM_EMAIL= ; RESEND_TO_EMAIL=
 NEXT_PUBLIC_TURNSTILE_SITE_KEY= ; TURNSTILE_SECRET_KEY=
 # Analytics (PostHog) — empty disables
 NEXT_PUBLIC_POSTHOG_KEY= ; NEXT_PUBLIC_POSTHOG_HOST=
-# Google Ads conversions (Ad Grants), marketing-consent-gated — empty disables
-NEXT_PUBLIC_GOOGLE_ADS_ID= ; NEXT_PUBLIC_GOOGLE_ADS_LEAD_LABEL= ; NEXT_PUBLIC_GOOGLE_ADS_CALL_LABEL=
+# Google Ads conversions (Ad Grants), Consent Mode v2 advanced (loads for all, denied until marketing consent) — empty disables
+NEXT_PUBLIC_GOOGLE_ADS_ID= ; NEXT_PUBLIC_GOOGLE_ADS_LEAD_LABEL= ; NEXT_PUBLIC_GOOGLE_ADS_CALL_LABEL= ; NEXT_PUBLIC_GOOGLE_ADS_CALC_LABEL=
 # Database (Prisma / PostgreSQL)
 DATABASE_URL=postgresql://user:pass@host:5432/db
 # Auth (better-auth)

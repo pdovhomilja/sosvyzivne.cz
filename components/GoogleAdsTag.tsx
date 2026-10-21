@@ -1,11 +1,12 @@
 "use client";
 
 import { useEffect } from "react";
-import { useConsent } from "@/lib/consent";
+import { readConsent, useConsent } from "@/lib/consent";
 
 const ADS_ID = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID;
 const LEAD_LABEL = process.env.NEXT_PUBLIC_GOOGLE_ADS_LEAD_LABEL;
 const CALL_LABEL = process.env.NEXT_PUBLIC_GOOGLE_ADS_CALL_LABEL;
+const CALC_LABEL = process.env.NEXT_PUBLIC_GOOGLE_ADS_CALC_LABEL;
 
 type Gtag = (...args: unknown[]) => void;
 declare global {
@@ -15,7 +16,10 @@ declare global {
   }
 }
 
-/** Sends a Google Ads conversion. No-op until the tag has loaded (marketing consent). */
+/**
+ * Sends a Google Ads conversion whatever the consent state; without marketing
+ * consent Google receives a cookieless ping. No-op until the tag has loaded.
+ */
 function trackConversion(label: string | undefined) {
   if (!ADS_ID || !label || !window.gtag) return;
   window.gtag("event", "conversion", { send_to: `${ADS_ID}/${label}` });
@@ -26,12 +30,18 @@ export function trackLeadConversion() {
   trackConversion(LEAD_LABEL);
 }
 
+/** Calculator showed a result. */
+export function trackCalculatorConversion() {
+  trackConversion(CALC_LABEL);
+}
+
 /**
- * Consent-gated Google Ads tag (Ad Grants conversion tracking). gtag.js is
- * loaded only after the visitor enables "Marketing" in the cookie banner;
- * withdrawing consent switches ad storage back to denied. Counts clicks on any
- * tel: link as a call conversion. With no NEXT_PUBLIC_GOOGLE_ADS_ID set, this
- * is a no-op.
+ * Google Ads tag (Ad Grants conversion tracking) in Consent Mode v2, advanced
+ * mode. gtag.js loads for every visitor with all storage denied by default, so
+ * without consent Google gets only cookieless pings; enabling "Marketing" in
+ * the cookie banner grants ad storage, withdrawing it switches back to denied.
+ * Counts clicks on any tel: link as a call conversion. With no
+ * NEXT_PUBLIC_GOOGLE_ADS_ID set, this is a no-op.
  */
 export function GoogleAdsTag() {
   const consent = useConsent();
@@ -49,7 +59,6 @@ export function GoogleAdsTag() {
       });
       return;
     }
-    if (!marketingAllowed) return;
 
     window.dataLayer = window.dataLayer || [];
     window.gtag = function gtag() {
@@ -58,11 +67,21 @@ export function GoogleAdsTag() {
       window.dataLayer!.push(arguments);
     };
     window.gtag("consent", "default", {
-      ad_storage: "granted",
-      ad_user_data: "granted",
-      ad_personalization: "granted",
+      ad_storage: "denied",
+      ad_user_data: "denied",
+      ad_personalization: "denied",
       analytics_storage: "denied",
+      wait_for_update: 500,
     });
+    // A choice stored on an earlier visit applies before config; the first
+    // render after hydration still sees the server snapshot (no consent).
+    if (readConsent()?.marketing) {
+      window.gtag("consent", "update", {
+        ad_storage: "granted",
+        ad_user_data: "granted",
+        ad_personalization: "granted",
+      });
+    }
     window.gtag("js", new Date());
     window.gtag("config", ADS_ID);
 
