@@ -31,9 +31,10 @@ export const ORG = {
     auditor: "Simona Linhartová",
   },
   tagline: "Pomůžeme vám získat alimenty, na které máte právo!",
-  // Thursday hours confirmed as 08:00–14:00 (discrepancy in docs/06 resolved).
+  // Phone hours and office hours per Lenka Ranšová, 16 Oct 2026; office visits only by prior arrangement.
+  phoneHours: { day: "Pondělí – pátek", time: "08:00 – 16:00" },
   hours: [
-    { day: "Pondělí", time: "08:00 – 16:00" },
+    { day: "Pondělí", time: "08:00 – 14:00" },
     { day: "Čtvrtek", time: "08:00 – 14:00" },
   ],
 } as const;

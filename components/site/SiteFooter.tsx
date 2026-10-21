@@ -58,7 +58,10 @@ export async function SiteFooter() {
                 {ORG.email}
               </a>
             </li>
-            <li>{ORG.hours.map((h) => `${h.day} ${h.time}`).join(" · ")}</li>
+            <li>
+              Telefon {ORG.phoneHours.day} {ORG.phoneHours.time}
+            </li>
+            <li>Kancelář {ORG.hours.map((h) => `${h.day} ${h.time}`).join(" · ")} (po domluvě)</li>
             <li>Účet {ORG.donationAccount}</li>
           </ul>
         </div>

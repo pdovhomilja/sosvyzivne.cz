@@ -41,12 +41,8 @@ export default async function GetHelpPage({ params }: { params: Promise<{ locale
             <p className="text-sm text-[#D9BFB3]">Volání i poradenství jsou zdarma.</p>
           </div>
           <dl className="grid grid-cols-[auto_1fr] gap-x-5 gap-y-1">
-            {ORG.hours.map((h) => (
-              <div key={h.day} className="contents">
-                <dt className="font-semibold text-[#FFF6EC]">{h.day}</dt>
-                <dd className="m-0 tabular-nums">{h.time}</dd>
-              </div>
-            ))}
+            <dt className="font-semibold text-[#FFF6EC]">{ORG.phoneHours.day}</dt>
+            <dd className="m-0 tabular-nums">{ORG.phoneHours.time}</dd>
           </dl>
           <div>
             <a href={`mailto:${ORG.email}`} className="text-lg font-semibold text-[#FFF6EC] hover:underline">
