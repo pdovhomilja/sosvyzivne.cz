@@ -63,8 +63,8 @@ export default async function PrivacyPage({
           značku Google Ads v režimu souhlasu (Consent Mode). Načítá se všem
           návštěvníkům. Dokud v liště cookies nepovolíte kategorii
           „Marketingové“, neukládá žádné cookies a posílá společnosti Google
-          jen anonymní signály bez cookies, které slouží k souhrnnému měření
-          konverzí. Pokud kategorii „Marketingové“ povolíte, používá k měření
+          jen signály bez cookies a bez identifikátorů, které slouží
+          k souhrnnému měření konverzí. Pokud kategorii „Marketingové“ povolíte, používá k měření
           konverzí cookies. Zaznamenává pouze, zda návštěvník přicházející
           z reklamy odeslal formulář, klikl na telefonní číslo nebo si
           v kalkulačce spočítal výživné.
