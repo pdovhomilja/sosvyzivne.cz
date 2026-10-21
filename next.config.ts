@@ -20,6 +20,7 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       { source: "/test", destination: "/", permanent: true },
+      { source: "/mediace", destination: "/jak-pomahame/mediace", permanent: true },
       ...legacyRedirects(),
     ];
   },
